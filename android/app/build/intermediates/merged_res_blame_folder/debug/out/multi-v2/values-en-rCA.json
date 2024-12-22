@@ -1,0 +1,53 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.e_commerce_app-mergeDebugResources-24:/values-en-rCA/values-en-rCA.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\modys\\.gradle\\caches\\transforms-3\\8b1a4cc349c39cc1eed73756cf301287\\transformed\\browser-1.4.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,153,250,359",
+                        "endColumns": "97,96,108,98",
+                        "endOffsets": "148,245,354,453"
+                    },
+                    "to": {
+                        "startLines": "4,5,6,7",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "281,379,476,585",
+                        "endColumns": "97,96,108,98",
+                        "endOffsets": "374,471,580,679"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\modys\\.gradle\\caches\\transforms-3\\22d44d9593cc92ff0749ba241ad9052a\\transformed\\core-1.9.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "8",
+                        "startColumns": "4",
+                        "startOffsets": "684",
+                        "endColumns": "100",
+                        "endOffsets": "780"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\modys\\.gradle\\caches\\transforms-3\\94526c0d53b8971cebda6bcef980471e\\transformed\\jetified-credentials-1.2.0-rc01\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,167",
+                        "endColumns": "111,113",
+                        "endOffsets": "162,276"
+                    }
+                }
+            ]
+        }
+    ]
+}

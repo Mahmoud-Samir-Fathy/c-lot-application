@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">193562874029</string>
+    <string name="google_api_key" translatable="false">AIzaSyAIb-p_N-1FNcr4CdaCZgzOKUcKhuYcXmc</string>
+    <string name="google_app_id" translatable="false">1:193562874029:android:e1e5fbc41fb9a96f56f624</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAIb-p_N-1FNcr4CdaCZgzOKUcKhuYcXmc</string>
+    <string name="google_storage_bucket" translatable="false">e-commerce-application-32dc8.firebasestorage.app</string>
+    <string name="project_id" translatable="false">e-commerce-application-32dc8</string>
+</resources>
