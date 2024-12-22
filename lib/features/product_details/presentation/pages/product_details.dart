@@ -1,6 +1,9 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
+import 'package:e_commerce_app/features/product_details/presentation/widgets/product_color_widget/product_color.dart';
 import 'package:e_commerce_app/features/product_details/presentation/widgets/product_image.dart';
+import 'package:e_commerce_app/features/product_details/presentation/widgets/product_quantity.dart';
+import 'package:e_commerce_app/features/product_details/presentation/widgets/product_size_widget/product_size.dart';
 import 'package:e_commerce_app/shared_widgets/app_bar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,6 +54,15 @@ class ProductDetails extends StatelessWidget {
                       ),),
                   ],
                 ),
+                SizedBox(height: 10.h,),
+
+                const ProductSize(),
+                SizedBox(height: 10.h,),
+
+                const ProductColor(),
+                SizedBox(height: 10.h,),
+
+                const ProductQuantity()
 
               ],
             ),
