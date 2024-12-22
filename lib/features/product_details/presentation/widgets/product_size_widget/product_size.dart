@@ -1,11 +1,13 @@
 import 'package:e_commerce_app/core/helper/app_bottom_sheet.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
+import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
 import 'package:e_commerce_app/features/product_details/presentation/widgets/product_size_widget/product_size_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductSize extends StatelessWidget {
-  const ProductSize({super.key});
+  final ProductEntity product;
+  const ProductSize({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class ProductSize extends StatelessWidget {
             IconButton(onPressed: (){
               AppBottomSheet.display(
                   context,
-                  const ProductSizeBottomSheet()
+                   ProductSizeBottomSheet(product: product,)
 
               );
             }, icon: Icon(Icons.keyboard_arrow_down_sharp,size: 25.sp,))
