@@ -120,8 +120,7 @@ class GenderAndAge extends StatelessWidget {
                         AppBottomSheet.display(
                           context,
                           AgeRange(
-                            onSelect: (ageRange) =>
-                                cubit.selectAgeRange(ageRange),
+                            onSelect: (ageRange) => cubit.selectAgeRange(ageRange),
                           ),
                         );
                       },

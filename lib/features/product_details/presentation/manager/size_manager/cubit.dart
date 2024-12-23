@@ -7,14 +7,10 @@ class SizeCubit extends Cubit<SizeStates> {
 
   static SizeCubit get(context) => BlocProvider.of(context);
 
-  int selectedIndex = 0;
+  int selectedIndex=0;
 
   void selectSize(int index) {
-    if (selectedIndex == index) {
-      selectedIndex = 0;
-    } else {
-      selectedIndex = index;
-    }
+    selectedIndex = index;
     emit(ChangeSizeState());
   }
 }

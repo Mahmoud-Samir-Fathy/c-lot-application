@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
+import 'package:e_commerce_app/features/product_details/presentation/manager/quantity_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/size_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/widgets/product_color_widget/product_color.dart';
 import 'package:e_commerce_app/features/product_details/presentation/widgets/product_image.dart';
@@ -25,7 +26,8 @@ class ProductDetails extends StatelessWidget {
       ),
       body: MultiBlocProvider(
         providers: [
-          BlocProvider<SizeCubit>(create: (context) => SizeCubit(),)
+          BlocProvider<SizeCubit>(create: (context) => SizeCubit()),
+          BlocProvider<QuantityCubit>(create: (context) => QuantityCubit())
         ],
         child: Column(
           children: [
@@ -50,9 +52,7 @@ class ProductDetails extends StatelessWidget {
                         style: const TextStyle(color: AppColors.primary),
                       ),
                       SizedBox(width: 10.w,),
-                      Text(product.discountPrice == 0
-                          ? ''
-                          : '${product.price + product.discountPrice} L.E',
+                      Text(product.discountPrice == 0 ? '' : '${product.price + product.discountPrice} L.E',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: AppColors.searchColor,
@@ -68,8 +68,28 @@ class ProductDetails extends StatelessWidget {
                   const ProductColor(),
                   SizedBox(height: 10.h,),
 
-                  const ProductQuantity()
+                  const ProductQuantity(),
 
+                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60.h,
+                    child: MaterialButton(
+
+                      onPressed: () {},
+                      color: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.r)),
+                      child: Row(
+                        children: [
+                          Text(
+                            "\$${product.price * QuantityCubit.get(context).index}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp),),
+                          const Spacer(),
+                          Text('Add to Bag' ,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),)
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             )
