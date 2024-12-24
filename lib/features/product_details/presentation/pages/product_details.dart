@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
+import 'package:e_commerce_app/features/product_details/presentation/manager/color_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/quantity_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/size_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/widgets/product_color_widget/product_color.dart';
@@ -21,7 +22,8 @@ class ProductDetails extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SizeCubit>(create: (context) => SizeCubit()),
-        BlocProvider<QuantityCubit>(create: (context) => QuantityCubit())
+        BlocProvider<QuantityCubit>(create: (context) => QuantityCubit()),
+        BlocProvider<ColorCubit>(create: (context) => ColorCubit())
       ],
       child: Scaffold(
         appBar: BasicAppbar(
@@ -84,7 +86,9 @@ class ProductDetails extends StatelessWidget {
                   SizedBox(
                     height: 10.h,
                   ),
-                  const ProductColor(),
+                   ProductColor(
+                     product: product,
+                  ),
                   SizedBox(
                     height: 10.h,
                   ),

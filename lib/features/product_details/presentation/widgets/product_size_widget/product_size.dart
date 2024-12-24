@@ -26,13 +26,17 @@ class ProductSize extends StatelessWidget {
           children: [
             const Text('Size'),
             const Spacer(),
-            const Text('S'),
+            BlocBuilder<SizeCubit, int>(
+              builder: (context, state) {
+                return Text("${product.sizes[state]}" );
+              },
+            ),
             SizedBox(width: 5.w,),
             IconButton(onPressed: () {
               AppBottomSheet.display(
                   context,
                   BlocProvider.value(
-                    value:BlocProvider.of<SizeCubit>(context),
+                    value: BlocProvider.of<SizeCubit>(context),
                     child: ProductSizeBottomSheet(product: product,),
                   )
 

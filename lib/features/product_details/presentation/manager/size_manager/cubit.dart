@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
-import 'package:e_commerce_app/features/product_details/presentation/manager/size_manager/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SizeCubit extends Cubit<SizeStates> {
-  SizeCubit() : super(SizeInitialState());
+class SizeCubit extends Cubit<int> {
+  SizeCubit() : super(0);
 
   static SizeCubit get(context) => BlocProvider.of(context);
 
@@ -11,6 +9,6 @@ class SizeCubit extends Cubit<SizeStates> {
 
   void selectSize(int index) {
     selectedIndex = index;
-    emit(ChangeSizeState());
+    emit(index);
   }
 }

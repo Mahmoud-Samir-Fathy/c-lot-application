@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/size_manager/cubit.dart';
-import 'package:e_commerce_app/features/product_details/presentation/manager/size_manager/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +12,7 @@ class ProductSizeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SizeCubit, SizeStates>(
+    return BlocConsumer<SizeCubit, int>(
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = SizeCubit.get(context);
