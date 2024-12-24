@@ -1,20 +1,23 @@
-import 'package:bloc/bloc.dart';
-import 'package:e_commerce_app/features/product_details/presentation/manager/quantity_manager/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class QuantityCubit extends Cubit<QuantityStates>{
-  QuantityCubit():super(QuantityInitialState());
+class QuantityCubit extends Cubit<int>{
+  QuantityCubit():super(1);
   static QuantityCubit get(context)=>BlocProvider.of(context);
 
-  int index=1;
   void increaseQuantity(){
-    index++;
-    emit(QuantityIncreaseState(quantity: index));
+    emit(state+1);
   }
   void decreaseQuantity(){
-    if(index>1){
-      --index;
+    if(state>1){
+      emit(state-1);
     }
-    emit(QuantityDecreaseState(quantity: index));
+  }
+  int calculateTotalPrice({
+    required int quantity,
+    required int price,
+  }) {
+    final effectivePrice =
+   price*quantity;
+    return effectivePrice;
   }
 }

@@ -13,79 +13,113 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetails extends StatelessWidget {
   final ProductEntity product;
+
   const ProductDetails({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: BasicAppbar(
-        hideBack: false,
-        action: IconButton(
-          icon: const Icon(Icons.favorite_outline), onPressed: () {  },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SizeCubit>(create: (context) => SizeCubit()),
+        BlocProvider<QuantityCubit>(create: (context) => QuantityCubit())
+      ],
+      child: Scaffold(
+        appBar: BasicAppbar(
+          hideBack: false,
+          action: IconButton(
+            icon: const Icon(Icons.favorite_outline),
+            onPressed: () {},
+          ),
         ),
-      ),
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<SizeCubit>(create: (context) => SizeCubit()),
-          BlocProvider<QuantityCubit>(create: (context) => QuantityCubit())
-        ],
-        child: Column(
+        body: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.only(left: 20.0.w),
+              padding: EdgeInsets.only(left: 20.0.w),
               child: SizedBox(
-                height: 300.h,
-                  child: ProductImage(product: product)),
+                  height: 300.h, child: ProductImage(product: product)),
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(
+              height: 10.h,
+            ),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.title,style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold),),
-                  SizedBox(height: 10.h,),
+                  Text(
+                    product.title,
+                    style:
+                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Row(
                     children: [
                       Text(
                         '\$${product.price.toString()}',
                         style: const TextStyle(color: AppColors.primary),
                       ),
-                      SizedBox(width: 10.w,),
-                      Text(product.discountPrice == 0 ? '' : '${product.price + product.discountPrice} L.E',
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(
+                        product.discountPrice == 0
+                            ? ''
+                            : '${product.price + product.discountPrice} L.E',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: AppColors.searchColor,
                           decoration: TextDecoration.lineThrough,
-                        ),),
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 10.h,),
-
-                   ProductSize(product: product,),
-                  SizedBox(height: 10.h,),
-
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  ProductSize(
+                    product: product,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   const ProductColor(),
-                  SizedBox(height: 10.h,),
-
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   const ProductQuantity(),
-
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     height: 60.h,
                     child: MaterialButton(
-
                       onPressed: () {},
                       color: AppColors.primary,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.r)),
                       child: Row(
                         children: [
-                          Text(
-                            "\$${product.price * QuantityCubit.get(context).index}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp),),
+                          BlocBuilder<QuantityCubit, int>(
+                            builder: (context, state) {
+                              var cubit=QuantityCubit.get(context);
+                              var price=cubit.calculateTotalPrice(quantity: state, price: product.price);
+                              return Text(
+                                '\$${price.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp),
+                              );
+                            },
+                          ),
                           const Spacer(),
-                          Text('Add to Bag' ,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),)
+                          Text(
+                            'Add to Bag',
+                            style: TextStyle(
+                                fontSize: 18.sp, fontWeight: FontWeight.bold),
+                          )
                         ],
                       ),
                     ),
@@ -93,7 +127,6 @@ class ProductDetails extends StatelessWidget {
                 ],
               ),
             )
-
           ],
         ),
       ),
