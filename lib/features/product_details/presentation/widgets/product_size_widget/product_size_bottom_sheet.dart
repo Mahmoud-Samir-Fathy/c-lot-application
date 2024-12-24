@@ -13,32 +13,29 @@ class ProductSizeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SizeCubit(),
-      child: BlocConsumer<SizeCubit, SizeStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = SizeCubit.get(context);
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) =>
-                      buildSizeItem(cubit, product, index, context),
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 15.h,
-                  ),
-                  itemCount: product.sizes.length,
+    return BlocConsumer<SizeCubit, SizeStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = SizeCubit.get(context);
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 16.h),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) =>
+                    buildSizeItem(cubit, product, index, context),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 15.h,
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+                itemCount: product.sizes.length,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
