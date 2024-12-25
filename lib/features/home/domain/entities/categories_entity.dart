@@ -12,12 +12,5 @@ class CategoriesEntity {
       image: json['image'],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'categoryId': categoryId,
-      'title': title,
-      'image': image,
-    };
-  }
 }
+ 

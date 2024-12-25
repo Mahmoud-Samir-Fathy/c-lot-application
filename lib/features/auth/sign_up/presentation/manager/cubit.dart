@@ -36,9 +36,8 @@ class SignUpCubit extends Cubit<SignUpStates> {
 
     final result = await signupUseCase.registerRepository.signUP(user);
 
-    result.fold((failure) {
-      emit(SignUpErrorState(failure.massage));
-    }, (_) {
+    result.fold((failure) {emit(SignUpErrorState(failure.massage));},
+          (_) {
       // Navigator.pushReplacementNamed(context, AppRoutes.homeScreenRoute);
       emit(SignUpSuccessState());
     },

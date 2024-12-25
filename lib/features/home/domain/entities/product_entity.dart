@@ -48,19 +48,5 @@ class ProductEntity {
   }
 
   // To JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'productId': productId,
-      'categoryId': categoryId,
-      'discountPrice': discountPrice,
-      'gender': gender,
-      'categoryDate': categoryDate,
-      'image': image,
-      'price': price,
-      'salesNumber': salesNumber,
-      'sizes': sizes,
-      'title': title,
-      'colors': colors.map((color) => color.toJson()).toList(),
-    };
-  }
+
 }

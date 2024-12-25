@@ -30,7 +30,7 @@ class ProductColorBottomSheet extends StatelessWidget {
                 separatorBuilder: (context, index) => SizedBox(
                   height: 15.h,
                 ),
-                itemCount: 3,
+                itemCount: product.colors.length,
               ),
             ],
           ),

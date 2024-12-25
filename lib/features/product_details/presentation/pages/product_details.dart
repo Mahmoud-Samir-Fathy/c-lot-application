@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
+import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
+import 'package:e_commerce_app/features/product_details/domain/entities/add_to_cart_entity.dart';
+import 'package:e_commerce_app/features/product_details/presentation/manager/add_to_cart_manager/cubit.dart';
+import 'package:e_commerce_app/features/product_details/presentation/manager/add_to_cart_manager/states.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/color_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/quantity_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/size_manager/cubit.dart';
@@ -23,7 +28,10 @@ class ProductDetails extends StatelessWidget {
       providers: [
         BlocProvider<SizeCubit>(create: (context) => SizeCubit()),
         BlocProvider<QuantityCubit>(create: (context) => QuantityCubit()),
-        BlocProvider<ColorCubit>(create: (context) => ColorCubit())
+        BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
+        BlocProvider<AddToCartCubit>(create: (context) => sl<AddToCartCubit>()),
+
+
       ],
       child: Scaffold(
         appBar: BasicAppbar(
@@ -51,7 +59,7 @@ class ProductDetails extends StatelessWidget {
                   Text(
                     product.title,
                     style:
-                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 10.h,
@@ -86,8 +94,8 @@ class ProductDetails extends StatelessWidget {
                   SizedBox(
                     height: 10.h,
                   ),
-                   ProductColor(
-                     product: product,
+                  ProductColor(
+                    product: product,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -96,37 +104,64 @@ class ProductDetails extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60.h,
-                    child: MaterialButton(
-                      onPressed: () {},
-                      color: AppColors.primary,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.r)),
-                      child: Row(
-                        children: [
-                          BlocBuilder<QuantityCubit, int>(
-                            builder: (context, state) {
-                              var cubit=QuantityCubit.get(context);
-                              var price=cubit.calculateTotalPrice(quantity: state, price: product.price);
-                              return Text(
-                                '\$${price.toStringAsFixed(2)}',
+                  BlocConsumer<AddToCartCubit, AddToCartStates>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      var cubit = AddToCartCubit.get(context);
+                      return SizedBox(
+                        width: double.infinity,
+                        height: 60.h,
+                        child: MaterialButton(
+                          onPressed: () {
+                            var sizeCubit = SizeCubit.get(context);
+                            var colorCubit = ColorCubit.get(context);
+                            var quantityCubit = QuantityCubit.get(context);
+                            int quantity = quantityCubit.state;
+                            double totalPrice = quantity * product.price.toDouble();
+                            String selectedColor = product.colors[colorCubit.selectedIndex].title;
+
+
+                            cubit.addToCart(AddToCartEntity(
+                                productId: product.productId,
+                                productTitle: product.title,
+                                productSize:  product.sizes[sizeCubit.selectedIndex],
+                                productColor:selectedColor,
+                                productImage: product.image[0],
+                                addToCartDate: Timestamp.now(),
+                                productQuantity: quantity,
+                                totalPrice: totalPrice,
+                                productPrice: product.price.toDouble()));
+                          },
+                          color: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.r)),
+                          child: Row(
+                            children: [
+                              BlocBuilder<QuantityCubit, int>(
+                                builder: (context, state) {
+                                  var cubit = QuantityCubit.get(context);
+                                  var price = cubit.calculateTotalPrice(
+                                      quantity: state, price: product.price);
+                                  return Text(
+                                    '\$${price.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp),
+                                  );
+                                },
+                              ),
+                              const Spacer(),
+                              Text(
+                                'Add to Bag',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.sp),
-                              );
-                            },
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
                           ),
-                          const Spacer(),
-                          Text(
-                            'Add to Bag',
-                            style: TextStyle(
-                                fontSize: 18.sp, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),
