@@ -13,6 +13,10 @@ import 'package:e_commerce_app/features/auth/sign_up/data/repositories/register_
 import 'package:e_commerce_app/features/auth/sign_up/domain/repositories/register_repository.dart';
 import 'package:e_commerce_app/features/auth/sign_up/domain/use_cases/signup_usecase.dart';
 import 'package:e_commerce_app/features/auth/sign_up/presentation/manager/cubit.dart';
+import 'package:e_commerce_app/features/cart/data/data_sources/fire_base_get_cart_items_data_source.dart';
+import 'package:e_commerce_app/features/cart/data/repositories/get_from_cart_repository_impl.dart';
+import 'package:e_commerce_app/features/cart/domain/repositories/get_from_cart_repository.dart';
+import 'package:e_commerce_app/features/cart/domain/use_cases/get_from_cart_use_case.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_category_data_source.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_product_data_source.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_user_data_source.dart';
@@ -45,6 +49,7 @@ import 'package:e_commerce_app/features/splash/domain/use_cases/authentication_u
 import 'package:e_commerce_app/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/cart/presentation/manager/cubit.dart';
 import 'features/product_details/presentation/manager/add_to_cart_manager/cubit.dart';
 
 final sl = GetIt.instance;
@@ -70,6 +75,8 @@ Future<void> init() async {
           () => FireBaseGetProductDataSourceImpl());
   sl.registerLazySingleton<FireBaseProductDataSource>(
           () => FireBaseProductDataSourceImpl());
+  sl.registerLazySingleton<FireBaseGetCartItemsDataSource>(
+          () => FireBaseGetCartItemsDataSourceImpl());
 
   // Repository
   sl.registerLazySingleton<RegisterRepository>(
@@ -88,6 +95,8 @@ Future<void> init() async {
           () => GetProductsRepositoryImpl(fireBaseGetProductDataSource: sl()));
   sl.registerLazySingleton<ProductRepository>(
           () => ProductRepositoryImpl(fireBaseProductDataSource: sl()));
+  sl.registerLazySingleton<GetFromCartRepository>(
+          () => GetFromCartRepositoryImpl(fireBaseGetCartItemsDataSource: sl()));
 
   // Use case
   sl.registerLazySingleton<SignupUseCase>(
@@ -112,6 +121,8 @@ Future<void> init() async {
           () => GetAllProductsUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<AddToCartUseCase>(
           () => AddToCartUseCase(productRepository: sl()));
+  sl.registerLazySingleton<GetFromCartUseCase>(
+          () => GetFromCartUseCase(getFromCartRepository: sl()));
   // Cubit
   sl.registerFactory<SplashCubit>(() => SplashCubit(authenticationUseCases: sl()));
   sl.registerFactory<SignUpCubit>(() => SignUpCubit(signupUseCase: sl()));
@@ -124,4 +135,5 @@ Future<void> init() async {
   sl.registerFactory<GetProductsByCategoryCubit>(() => GetProductsByCategoryCubit(getProductsByCategoryIdUseCase: sl()));
   sl.registerFactory<GetAllProductsCubit>(() => GetAllProductsCubit(getAllProductsUseCase: sl()));
   sl.registerFactory<AddToCartCubit>(() => AddToCartCubit(addToCartUseCase: sl()));
+  sl.registerFactory<GetFromCartCubit>(() => GetFromCartCubit(getFromCartUseCase: sl()));
 }

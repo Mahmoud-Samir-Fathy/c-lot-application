@@ -3,6 +3,8 @@ import 'package:e_commerce_app/config/themes.dart';
 import 'package:e_commerce_app/features/auth/forget_password/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/auth/sign_in/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/auth/sign_up/presentation/manager/cubit.dart';
+import 'package:e_commerce_app/features/cart/domain/use_cases/get_from_cart_use_case.dart';
+import 'package:e_commerce_app/features/cart/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_all_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_products_use_case.dart';
@@ -73,6 +75,10 @@ class ECommerceApplication extends StatelessWidget {
                   getAllProductsUseCase: di.sl<GetAllProductsUseCase>())
                 ..getAllProducts(''),
               child: const SearchPage(),
+            ),
+            BlocProvider<GetFromCartCubit>(
+              create: (context) => GetFromCartCubit(
+                  getFromCartUseCase: di.sl<GetFromCartUseCase>()),
             ),
           ],
           child: MaterialApp(

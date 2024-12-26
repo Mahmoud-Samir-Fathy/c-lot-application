@@ -1,11 +1,9 @@
 import 'package:e_commerce_app/features/auth/forget_password/presentation/pages/forget_password.dart';
 import 'package:e_commerce_app/features/auth/forget_password/presentation/pages/return_sign_in.dart';
-import 'package:e_commerce_app/features/auth/sign_in/presentation/pages/enter_password.dart';
 import 'package:e_commerce_app/features/auth/sign_in/presentation/pages/sign_in.dart';
 import 'package:e_commerce_app/features/auth/sign_up/presentation/pages/sign_up.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/categories.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/home_page.dart';
-import 'package:e_commerce_app/features/home/presentation/pages/product_by_category.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/search_page.dart';
 import 'package:e_commerce_app/features/splash/presentation/pages/splash_screen.dart';
 
