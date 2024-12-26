@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/asset_manager/app_images.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/dependency_injection.dart';
+import 'package:e_commerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/app_bar_manager/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/app_bar_manager/states.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             final user = state.user;
             return AppBar(
               backgroundColor: AppColors.transparent,
-
               centerTitle: true,
               leading: CircleAvatar(
                 radius: 20.r,
@@ -62,12 +62,21 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               actions: [
-                IconButton(
-                  onPressed: () {
-                    // AppNavigators.push(context, AppRoutes.cart);
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const CartPage()));
                   },
-                  icon: const Icon(Icons.shopping_bag_outlined),
-                ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(30.r),
+                    ),
+                    child: Padding(
+                      padding:  EdgeInsets.all(8.0.sp),
+                      child: const Icon(Icons.shopping_bag_outlined,color: AppColors.buttonTextColor,),
+                    ),
+                  ),
+                )
               ],
             );
           }

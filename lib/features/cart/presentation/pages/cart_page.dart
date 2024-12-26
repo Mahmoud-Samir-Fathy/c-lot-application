@@ -1,14 +1,11 @@
 import 'package:e_commerce_app/core/asset_manager/app_images.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
-import 'package:e_commerce_app/features/cart/domain/entities/get_from_cart_entity.dart';
 import 'package:e_commerce_app/shared_widgets/app_bar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
-
 class CartPage extends StatelessWidget {
-  final List<GetFromCartEntity> cartItems;
 
-  const CartPage({super.key, required this.cartItems});
+  const CartPage({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +14,14 @@ class CartPage extends StatelessWidget {
         hideBack: false,
         title: Text('Cart'),
       ),
-      body: cartItems.isEmpty
-          ? Center(
-        child: Column(
-          children: [
-            const Image(image: AssetImage(AppImages.emptyCart)),
-            const SizedBox(height: 15),
-            const Text('Your Cart Is Empty'),
-            const SizedBox(height: 15),
-            MaterialButton(
-              onPressed: () {},
-              child: const Text('Explore Categories'),
-            )
-          ],
-        ),
-      )
-          : ListView.separated(
-        itemBuilder: (context, index) =>
-            buildCartItem(cartItems[index]), // Pass a single entity
-        separatorBuilder: (context, index) => const SizedBox(height: 10),
-        itemCount: cartItems.length,
-      ),
+      body:ListView.separated(
+              itemBuilder: (context, index) => buildCartItem(),
+              separatorBuilder: (context, index) => const SizedBox(height: 10),
+              itemCount: 10,
+            ),
     );
   }
-
-  Widget buildCartItem(GetFromCartEntity entity) => Container(
+  Widget buildCartItem()=>Container(
     width: double.infinity,
     height: 100,
     decoration: BoxDecoration(
@@ -53,35 +33,46 @@ class CartPage extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Image(
-                  height: 80,
-                  width: 80,
-                  image: NetworkImage(entity.productImage))),
+            borderRadius: BorderRadius.circular(30),
+            child: const Image(
+              height: 80,
+              width: 80,
+              image: AssetImage(AppImages.defaultImage),
+              fit: BoxFit.cover,
+            ),
+          ),
           const SizedBox(width: 15),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   children: [
-                    Text(
-                      entity.productTitle,
-                      style: const TextStyle(
+                    Expanded(
+                      child: Text(
+                        'Ay 5ra',
+                        style: TextStyle(
                           color: AppColors.buttonTextColor,
                           fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    const Spacer(),
-                    Text("\$${entity.productPrice}",
-                        style: const TextStyle(
-                            color: AppColors.buttonTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold)),
+                    Spacer(),
+                    Text(
+                      "\$${10}",
+                      style: TextStyle(
+                        color: AppColors.buttonTextColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     const Text(
@@ -91,29 +82,40 @@ class CartPage extends StatelessWidget {
                         fontSize: 15,
                       ),
                     ),
-                    Text(' ${entity.productSize}',
-                        style: const TextStyle(
-                            color: AppColors.buttonTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold)),
+                    const Text(
+                      "${20}",
+                      style: TextStyle(
+                        color: AppColors.buttonTextColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 15),
-                    const Text('Color - ',
-                        style: TextStyle(
-                          color: AppColors.searchColor,
-                          fontSize: 15,
-                        )),
-                    Text(' ${entity.productColor}',
-                        style: const TextStyle(
-                            color: AppColors.buttonTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Color - ',
+                      style: TextStyle(
+                        color: AppColors.searchColor,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const Text(
+                     '5rawy',
+                      style: TextStyle(
+                        color: AppColors.buttonTextColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const Spacer(),
                     FloatingActionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Add logic to remove item from cart or decrease quantity
+                      },
                       mini: true,
+                      backgroundColor: AppColors.primary,
                       child: const Icon(
                         Icons.remove,
-                        color: AppColors.primary,
+                        color: AppColors.buttonTextColor,
                       ),
                     ),
                   ],
@@ -126,3 +128,5 @@ class CartPage extends StatelessWidget {
     ),
   );
 }
+
+

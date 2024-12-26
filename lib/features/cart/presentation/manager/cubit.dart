@@ -15,7 +15,10 @@ class GetFromCartCubit extends Cubit<GetFromCartStates> {
     result.fold(
           (failure) => emit(GetFromCartErrorState(message: failure.toString())),
           (response) {
-        emit(GetFromCartSuccessState(cart: response));
+            print('Cart data: ${response.toString()}');
+
+            emit(GetFromCartSuccessState(cart: response));
+
       },
     );
   }
