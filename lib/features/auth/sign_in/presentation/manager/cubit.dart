@@ -19,14 +19,8 @@ class SignInCubit extends Cubit<SignInStates> {
     emit(SignInLoadingState());
     final result = await signInUseCase.loginRepository.signIn(user);
 
-    result.fold(
-          (failure) {
-        debugPrint('SignIn failed with message: $failure'); // Directly use failure here
-        emit(SignInErrorState(failure)); // Pass failure (string) directly
-      },
-          (response) {
-        debugPrint('SignIn succeeded');
-        emit(SignInSuccessState());
+    result.fold((failure) {emit(SignInErrorState(failure));
+      }, (response) {emit(SignInSuccessState());
       },
     );
   }
