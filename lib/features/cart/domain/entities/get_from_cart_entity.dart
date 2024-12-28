@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class GetFromCartEntity{
+class CartEntity{
   final String productId;
   final String productTitle;
   final int productSize;
@@ -10,8 +10,9 @@ class GetFromCartEntity{
   final int productQuantity;
   final double totalPrice;
   final double productPrice;
+  final String id;
 
-  GetFromCartEntity({
+  CartEntity({
     required this.productId,
     required this.productTitle,
     required this.productSize,
@@ -21,9 +22,10 @@ class GetFromCartEntity{
     required this.productQuantity,
     required this.totalPrice,
     required this.productPrice,
+    required this.id,
   });
-  factory GetFromCartEntity.fromJson(Map<String, dynamic> json) {
-    return GetFromCartEntity(
+  factory CartEntity.fromJson(Map<String, dynamic> json) {
+    return CartEntity(
       productId: json['productId'],
       productTitle: json['productTitle'],
       productSize: json['productSize'] ,
@@ -33,6 +35,7 @@ class GetFromCartEntity{
       productQuantity: json['productQuantity'] ,
       totalPrice: json['totalPrice'] ,
       productPrice: json['productPrice'],
+      id: json['id'],
     );
   }
 }

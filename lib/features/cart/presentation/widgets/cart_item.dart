@@ -1,16 +1,19 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/features/cart/domain/entities/get_from_cart_entity.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce_app/features/cart/presentation/manager/cubit.dart';
+import 'package:e_commerce_app/features/cart/presentation/manager/states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItem extends StatelessWidget {
-  final GetFromCartEntity cart;
+  final CartEntity cart;
+
   const CartItem({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
@@ -100,12 +103,22 @@ class CartItem extends StatelessWidget {
                       ),
                       const Spacer(),
 
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.r),
-                            color: AppColors.primary
-                        ),
-                        child: Icon(Icons.remove,size: 30.sp,),
+                      BlocBuilder<CartCubit, CartStates>(
+                        builder: (context, state) {
+                          var cubit=CartCubit.get(context);
+                          return GestureDetector(
+                            onTap: (){
+                              cubit.removeItemsFromCart(cart);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  color: AppColors.primary
+                              ),
+                              child: Icon(Icons.remove, size: 30.sp,),
+                            ),
+                          );
+                        },
                       )
                     ],
                   ),

@@ -24,12 +24,12 @@ class CartPage extends StatelessWidget {
         title: Text('Cart'),
       ),
       body: BlocProvider(
-        create: (context) => sl<GetFromCartCubit>()..getItemsFromCart(),
-        child: BlocConsumer<GetFromCartCubit, GetFromCartStates>(
+        create: (context) => sl<CartCubit>()..getItemsFromCart(),
+        child: BlocConsumer<CartCubit, CartStates>(
           listener: (context, state) {},
           builder: (context, state) {
             if (state is GetFromCartSuccessState) {
-              List<GetFromCartEntity> cartItem = state.cart;
+              List<CartEntity> cartItem = state.cart;
               return Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
                 child: Column(
@@ -45,7 +45,7 @@ class CartPage extends StatelessWidget {
                   ],
                 ),
               );
-            }else if(state is GetFromCartLoadingState){
+            }else if(state is CartLoadingState){
               return const Center(child: CircularProgressIndicator());
             }
             return Center(

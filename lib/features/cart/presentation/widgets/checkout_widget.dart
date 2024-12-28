@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CheckoutWidget extends StatelessWidget {
-  final List<GetFromCartEntity> product;
+  final List<CartEntity> product;
 
   const CheckoutWidget({super.key, required this.product});
 

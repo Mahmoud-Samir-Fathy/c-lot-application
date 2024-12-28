@@ -3,24 +3,25 @@ import 'package:e_commerce_app/features/cart/data/data_sources/fire_base_get_car
 import 'package:e_commerce_app/features/cart/domain/entities/get_from_cart_entity.dart';
 import 'package:e_commerce_app/features/cart/domain/repositories/get_from_cart_repository.dart';
 
-class GetFromCartRepositoryImpl implements GetFromCartRepository{
-  final FireBaseGetCartItemsDataSource fireBaseGetCartItemsDataSource;
+class CartRepositoryImpl implements CartRepository {
+  final FireBaseCartItemsDataSource fireBaseCartItemsDataSource;
 
-  GetFromCartRepositoryImpl({required this.fireBaseGetCartItemsDataSource});
+  CartRepositoryImpl({required this.fireBaseCartItemsDataSource});
+
   @override
-  Future<Either> getItemsFromCart() async{
-    var user = await fireBaseGetCartItemsDataSource.getItemsFromCart();
+  Future<Either> getItemsFromCart() async {
+    var user = await fireBaseCartItemsDataSource.getItemsFromCart();
 
     return user.fold(
-          (error) => Left(error),
-          (response) {
+      (error) => Left(error),
+      (response) {
         if (response == null || (response as List).isEmpty) {
           return Left(Exception('No items found.'));
         }
 
         try {
           final cartItems = (response)
-              .map((cart) => GetFromCartEntity.fromJson(cart))
+              .map((cart) => CartEntity.fromJson(cart))
               .toList();
           return Right(cartItems);
         } catch (e) {
@@ -28,5 +29,12 @@ class GetFromCartRepositoryImpl implements GetFromCartRepository{
         }
       },
     );
+  }
+
+  @override
+  Future<Either> removeItemsFromCart(String id) async {
+    var user = await fireBaseCartItemsDataSource.removeItemsFromCart(id);
+
+    return user.fold((error) => Left(error), (response) => Right(response));
   }
 }
