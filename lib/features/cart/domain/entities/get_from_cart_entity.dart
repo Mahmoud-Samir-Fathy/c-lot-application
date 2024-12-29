@@ -38,4 +38,18 @@ class CartEntity{
       id: json['id'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'productId': productId,
+      'productTitle': productTitle,
+      'productSize': productSize,
+      'productColor': productColor,
+      'productImage': productImage,
+      'addToCartDate': addToCartDate,
+      'productQuantity': productQuantity,
+      'totalPrice': totalPrice,
+      'productPrice': productPrice,
+      'id': id,
+    };
+  }
 }
