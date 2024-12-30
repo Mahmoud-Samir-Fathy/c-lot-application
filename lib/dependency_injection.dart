@@ -17,6 +17,7 @@ import 'package:e_commerce_app/features/cart/data/data_sources/fire_base_get_car
 import 'package:e_commerce_app/features/cart/data/repositories/get_from_cart_repository_impl.dart';
 import 'package:e_commerce_app/features/cart/domain/repositories/get_from_cart_repository.dart';
 import 'package:e_commerce_app/features/cart/domain/use_cases/get_from_cart_use_case.dart';
+import 'package:e_commerce_app/features/checkout/data/repositories/order_registration_repository_impl.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_category_data_source.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_product_data_source.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_user_data_source.dart';
@@ -51,6 +52,9 @@ import 'package:get_it/get_it.dart';
 
 import 'features/cart/domain/use_cases/remove_from_cart_use_case.dart';
 import 'features/cart/presentation/manager/cubit.dart';
+import 'features/checkout/data/data_sources/fire_base_order_registration_data_source.dart';
+import 'features/checkout/domain/repositories/order_registration_repository.dart';
+import 'features/checkout/domain/use_cases/order_register_use_case.dart';
 import 'features/product_details/presentation/manager/add_to_cart_manager/cubit.dart';
 
 final sl = GetIt.instance;
@@ -78,6 +82,8 @@ Future<void> init() async {
           () => FireBaseProductDataSourceImpl());
   sl.registerLazySingleton<FireBaseCartItemsDataSource>(
           () => FireBaseCartItemsDataSourceImpl());
+  sl.registerLazySingleton<FireBaseOrderRegistrationDataSource>(
+          () => FireBaseOrderRegistrationDataSourceImpl());
 
   // Repository
   sl.registerLazySingleton<RegisterRepository>(
@@ -98,6 +104,8 @@ Future<void> init() async {
           () => ProductRepositoryImpl(fireBaseProductDataSource: sl()));
   sl.registerLazySingleton<CartRepository>(
           () => CartRepositoryImpl(fireBaseCartItemsDataSource: sl()));
+  sl.registerLazySingleton<OrderRegistrationRepository>(
+          () => OrderRegistrationRepositoryImpl(fireBaseOrderRegistrationDataSource: sl()));
 
   // Use case
   sl.registerLazySingleton<SignupUseCase>(
@@ -126,6 +134,8 @@ Future<void> init() async {
           () => GetFromCartUseCase(cartRepository: sl()));
   sl.registerLazySingleton<RemoveFromCartUseCase>(
           () => RemoveFromCartUseCase(cartRepository: sl()));
+  sl.registerLazySingleton<OrderRegisterUseCase>(
+          () => OrderRegisterUseCase(orderRegistrationRepository: sl()));
   // Cubit
   sl.registerFactory<SplashCubit>(() => SplashCubit(authenticationUseCases: sl()));
   sl.registerFactory<SignUpCubit>(() => SignUpCubit(signupUseCase: sl()));
