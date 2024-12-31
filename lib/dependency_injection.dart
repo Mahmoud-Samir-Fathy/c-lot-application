@@ -18,6 +18,7 @@ import 'package:e_commerce_app/features/cart/data/repositories/get_from_cart_rep
 import 'package:e_commerce_app/features/cart/domain/repositories/get_from_cart_repository.dart';
 import 'package:e_commerce_app/features/cart/domain/use_cases/get_from_cart_use_case.dart';
 import 'package:e_commerce_app/features/checkout/data/repositories/order_registration_repository_impl.dart';
+import 'package:e_commerce_app/features/checkout/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_category_data_source.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_product_data_source.dart';
 import 'package:e_commerce_app/features/home/data/data_sources/fire_base_get_user_data_source.dart';
@@ -149,4 +150,5 @@ Future<void> init() async {
   sl.registerFactory<GetAllProductsCubit>(() => GetAllProductsCubit(getAllProductsUseCase: sl()));
   sl.registerFactory<AddToCartCubit>(() => AddToCartCubit(addToCartUseCase: sl()));
   sl.registerFactory<CartCubit>(() => CartCubit(getFromCartUseCase: sl(), removeFromCartUseCase:  sl(),));
+  sl.registerFactory<OrderRegisterCubit>(() => OrderRegisterCubit(orderRegisterUseCase: sl()));
 }

@@ -9,6 +9,7 @@ class CustomTextFormFieldWidget extends StatefulWidget {
     this.isPassword = false,
     this.onChanged,
     this.validator,
+    this.onSubmit, // Added onSubmit parameter
   });
 
   final TextEditingController? controller;
@@ -16,6 +17,7 @@ class CustomTextFormFieldWidget extends StatefulWidget {
   final bool isPassword;
   final Function(String)? onChanged;
   final String? Function(String?)? validator; // Validator parameter added
+  final Function(String)? onSubmit; // onSubmit callback
 
   @override
   _CustomTextFormFieldWidgetState createState() =>
@@ -38,6 +40,7 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
       obscureText: isObscured,
       onChanged: widget.onChanged,
       validator: widget.validator, // Validator passed to the TextFormField
+      onFieldSubmitted: widget.onSubmit, // Handle on submit action
       style: TextStyle(
         color: Colors.white,
         fontSize: 16.sp,

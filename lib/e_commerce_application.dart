@@ -6,6 +6,8 @@ import 'package:e_commerce_app/features/auth/sign_up/presentation/manager/cubit.
 import 'package:e_commerce_app/features/cart/domain/use_cases/get_from_cart_use_case.dart';
 import 'package:e_commerce_app/features/cart/domain/use_cases/remove_from_cart_use_case.dart';
 import 'package:e_commerce_app/features/cart/presentation/manager/cubit.dart';
+import 'package:e_commerce_app/features/checkout/domain/use_cases/order_register_use_case.dart';
+import 'package:e_commerce_app/features/checkout/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_all_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_products_use_case.dart';
@@ -81,6 +83,10 @@ class ECommerceApplication extends StatelessWidget {
               create: (context) => CartCubit(
                 removeFromCartUseCase: di.sl<RemoveFromCartUseCase>(),
                   getFromCartUseCase: di.sl<GetFromCartUseCase>()),
+            ),
+            BlocProvider<OrderRegisterCubit>(
+              create: (context) => OrderRegisterCubit(
+        orderRegisterUseCase: di.sl<OrderRegisterUseCase>(),)
             ),
           ],
           child: MaterialApp(

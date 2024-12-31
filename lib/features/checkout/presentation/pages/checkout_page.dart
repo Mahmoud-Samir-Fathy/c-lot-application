@@ -15,6 +15,7 @@ class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const BasicAppbar(
         title: Text('Checkout'),
         hideBack: false,
