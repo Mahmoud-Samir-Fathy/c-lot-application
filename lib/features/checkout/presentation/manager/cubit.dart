@@ -28,14 +28,13 @@ class OrderRegisterCubit extends Cubit<OrderRegisterStates> {
       final result =
       await orderRegisterUseCase.orderRegistrationRepository.registerOrder(order);
 
-      result.fold(
-            (failure) {
+      result.fold((failure) {
           emit(OrderRegisterErrorState(message: failure.toString()));
           print("###########################################${failure.toString()}");
 
             },
             (response) {
-          emit(OrderRegisterSuccessState(order: response));
+          emit(OrderRegisterSuccessState());
           AppNavigators.pushAndReplacement(context, AppRoutes.orderSuccessful);
         },
       );
