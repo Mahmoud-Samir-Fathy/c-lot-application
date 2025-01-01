@@ -1,15 +1,18 @@
-import 'package:e_commerce_app/config/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/core/helper/cart_helper.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
-import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
+import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/cart/domain/entities/get_from_cart_entity.dart';
+import 'package:e_commerce_app/features/checkout/domain/entities/order_registration_entity.dart';
+import 'package:e_commerce_app/features/checkout/presentation/manager/cubit.dart';
+import 'package:e_commerce_app/features/checkout/presentation/manager/states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class CheckoutButton extends StatelessWidget {
   final List<CartEntity> product;
-
   const CheckoutButton({super.key, required this.product});
 
   @override
@@ -75,7 +78,7 @@ class CheckoutButton extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '\$${CartHelper.calculatingSubTotal(product)+8}',)
+                  '\$${CartHelper.calculatingSubTotal(product) + 8}',)
               ],
             ),
             SizedBox(
@@ -89,22 +92,37 @@ class CheckoutButton extends StatelessWidget {
               ),
               width: double.infinity,
               height: 50.h,
-              child: MaterialButton(
-                onPressed: () {
-                  AppNavigators.push(context, AppRoutes.orderSuccessful);
-                },
-                child: Row(
-                  children: [
-                    Text('\$${CartHelper.calculatingSubTotal(product)+8}'),
-                    const Spacer(),
-                    Text(
-                      'Place Order',
-                      style: TextStyle(
-                          color: AppColors.buttonTextColor,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+              child: BlocProvider(
+                create: (context) => sl<OrderRegisterCubit>(),
+                child: BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return MaterialButton(
+                      onPressed: () {
+                        var cubit = context.read<OrderRegisterCubit>();
+                        cubit.registerOrder(OrderRegistrationEntity(
+                            userAddress: cubit.address.toString(),
+                            products: product,
+                            totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
+                            itemCount: product.length.toInt(),
+                            createdDate: Timestamp.now()),context);
+                      },
+                      child: Row(
+                        children: [
+                          Text('\$${CartHelper.calculatingSubTotal(product) +
+                              8}'),
+                          const Spacer(),
+                          Text(
+                            'Place Order',
+                            style: TextStyle(
+                                color: AppColors.buttonTextColor,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             )

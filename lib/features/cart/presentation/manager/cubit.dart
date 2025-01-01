@@ -29,12 +29,9 @@ class CartCubit extends Cubit<CartStates> {
     final result = await removeFromCartUseCase.cartRepository.removeItemsFromCart(
       cart.id
     );
-    result.fold(
-          (failure) => emit(RemovedErrorState(message: failure.toString())),
-          (response) {
-            emit(RemovedSuccessfullyState());
+    result.fold((failure) => emit(RemovedErrorState(message: failure.toString())),
+          (response) {emit(RemovedSuccessfullyState());
             getItemsFromCart();
-
           },
     );
   }

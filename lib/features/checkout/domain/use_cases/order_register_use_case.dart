@@ -8,8 +8,8 @@ class OrderRegisterUseCase extends UseCase<Either,OrderRegistrationEntity>{
 
   OrderRegisterUseCase({required this.orderRegistrationRepository});
   @override
-  Future<Either>? call(OrderRegistrationEntity params) {
-  return orderRegistrationRepository.registerOrder(params);
+  Future<Either>? call(OrderRegistrationEntity? params) {
+  return orderRegistrationRepository.registerOrder(params!);
   }
 
 }

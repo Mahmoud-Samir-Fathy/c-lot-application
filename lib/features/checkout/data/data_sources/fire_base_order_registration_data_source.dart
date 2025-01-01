@@ -28,7 +28,7 @@ class FireBaseOrderRegistrationDataSourceImpl
       }
       return const Right('Order Successfully Added');
     } on FirebaseException catch (e) {
-      return Left(e.message);
+      return Left(e.message.toString());
     }
   }
 }

@@ -18,9 +18,7 @@ class OrderRegistrationEntity {
 
   factory OrderRegistrationEntity.fromJson(Map<String, dynamic> json) {
     return OrderRegistrationEntity(
-      products: (json['products'] as List)
-          .map((product) => CartEntity.fromJson(product))
-          .toList(),
+      products: (json['products'] as List).map((product) => CartEntity.fromJson(product)).toList(),
       createdDate: json['createdDate'] as Timestamp,
       totalPrice: json['totalPrice'] as double,
       itemCount: json['itemCount'] as int,

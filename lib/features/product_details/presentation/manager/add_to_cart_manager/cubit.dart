@@ -13,8 +13,7 @@ class AddToCartCubit extends Cubit<AddToCartStates> {
 
   Future<void> addToCart(AddToCartEntity addToCart) async {
     emit(AddToCartLoadingState());
-    final result =
-        await addToCartUseCase.productRepository.addToCart(addToCart);
+    final result = await addToCartUseCase.productRepository.addToCart(addToCart);
     result.fold((failure) => emit(AddToCartErrorState(message: failure.massage)),
         (response) => emit(AddToCartSuccessState(cart: response)));
   }

@@ -9,7 +9,8 @@ class OrderRegistrationRepositoryImpl implements OrderRegistrationRepository{
 
   OrderRegistrationRepositoryImpl({required this.fireBaseOrderRegistrationDataSource});
   @override
-  Future<Either> registerOrder(OrderRegistrationEntity order) {
-    return fireBaseOrderRegistrationDataSource.registerOrder(order);
+  Future<Either> registerOrder(OrderRegistrationEntity order) async{
+    return await fireBaseOrderRegistrationDataSource.registerOrder(order);
+
   }
 }
