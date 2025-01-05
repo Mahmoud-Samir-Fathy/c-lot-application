@@ -21,7 +21,9 @@ class DialogHelper {
         return AlertDialog(
           title: Align(
             alignment: AlignmentDirectional.center,
-            child: Text(title),
+            child: Text(
+              title,
+            ),
           ),
           content: SizedBox(
             height: 100.h,
@@ -29,7 +31,7 @@ class DialogHelper {
               child: Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.w300),
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15.sp),
               ),
             ),
           ),
@@ -40,17 +42,18 @@ class DialogHelper {
               decoration: BoxDecoration(
                 color: negativeButtonColor ?? AppColors.primary,
                 borderRadius: BorderRadius.circular(30.r),
-                border: Border.all(color: borderColor ?? AppColors.secondBackground),
+                border: Border.all(
+                    color: borderColor ?? AppColors.secondBackground),
               ),
               child: MaterialButton(
                 height: 50.h,
-                shape:  RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.r)),
                 ),
                 onPressed: onNegativePressed,
                 child: Text(
                   negativeButtonText,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: AppColors.buttonTextColor),
                 ),
               ),
             ),
@@ -59,18 +62,19 @@ class DialogHelper {
               width: 120.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.r),
-                border: Border.all(color: positiveButtonColor ?? AppColors.primary),
+                border:
+                    Border.all(color: positiveButtonColor ?? AppColors.primary),
               ),
               child: MaterialButton(
                 color: positiveButtonColor ?? AppColors.primary,
                 height: 50.h,
-                shape:  RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.r)),
                 ),
                 onPressed: onPositivePressed,
                 child: Text(
                   positiveButtonText,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: AppColors.buttonTextColor),
                 ),
               ),
             ),

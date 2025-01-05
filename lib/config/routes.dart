@@ -2,6 +2,7 @@ import 'package:e_commerce_app/features/auth/forget_password/presentation/pages/
 import 'package:e_commerce_app/features/auth/forget_password/presentation/pages/return_sign_in.dart';
 import 'package:e_commerce_app/features/auth/sign_in/presentation/pages/sign_in.dart';
 import 'package:e_commerce_app/features/auth/sign_up/presentation/pages/sign_up.dart';
+import 'package:e_commerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:e_commerce_app/features/checkout/presentation/pages/order_registered_successfully_page.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/categories.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/home_page.dart';
@@ -18,6 +19,7 @@ class AppRoutes {
   static String categories = 'categories';
   static String search = 'search';
   static String orderSuccessful = 'orderSuccessful';
+  static String cart = 'cart';
 
 
   static get routes {
@@ -31,6 +33,7 @@ class AppRoutes {
       AppRoutes.categories: (context) => const Categories(),
       AppRoutes.search: (context) => const SearchPage(),
       AppRoutes.orderSuccessful: (context) => const OrderRegisteredSuccessfullyPage(),
+      AppRoutes.cart: (context) => const CartPage(),
     };
   }
 }
