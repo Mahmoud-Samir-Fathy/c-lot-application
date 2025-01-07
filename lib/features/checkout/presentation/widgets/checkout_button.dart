@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/core/helper/cart_helper.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
-import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/cart/domain/entities/get_from_cart_entity.dart';
 import 'package:e_commerce_app/features/checkout/domain/entities/order_registration_entity.dart';
 import 'package:e_commerce_app/features/checkout/presentation/manager/cubit.dart';
@@ -92,54 +91,50 @@ class CheckoutButton extends StatelessWidget {
               ),
               width: double.infinity,
               height: 50.h,
-              child: BlocProvider(
-                create: (context) => sl<OrderRegisterCubit>(),
-                child: BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                   return MaterialButton(
-                      onPressed: () {
-                        var cubit = context.read<OrderRegisterCubit>();
-                        if (state is AddressChangeState) {
-                          if(state.address.isNotEmpty) {
-                            cubit.registerOrder(
-                            OrderRegistrationEntity(
-                              userAddress: cubit.addressController.text,
-                              products: product,
-                              totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
-                              itemCount: product.length,
-                              createdDate: Timestamp.now(),
-                            ),
-                            context,
-                          );
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please enter your address'),
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          Text('\$${CartHelper.calculatingSubTotal(product) + 8}'),
-                          const Spacer(),
-                          Text(
-                            'Place Order',
-                            style: TextStyle(
-                              color: AppColors.buttonTextColor,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+              child: BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                 return MaterialButton(
+                    onPressed: () {
+                      var cubit = context.read<OrderRegisterCubit>();
+                      if (cubit.addressController.text.isNotEmpty) {
+                          cubit.registerOrder(
+                          OrderRegistrationEntity(
+                            userAddress: cubit.addressController.text,
+                            products: product,
+                            totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
+                            itemCount: product.length,
+                            createdDate: Timestamp.now(),
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                          context,
+                        );
+
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter your address'),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Text('\$${CartHelper.calculatingSubTotal(product) + 8}'),
+                        const Spacer(),
+                        Text(
+                          'Place Order',
+                          style: TextStyle(
+                            color: AppColors.buttonTextColor,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             )
           ],
