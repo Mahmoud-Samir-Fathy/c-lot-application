@@ -9,15 +9,17 @@ class CustomTextFormFieldWidget extends StatefulWidget {
     this.isPassword = false,
     this.onChanged,
     this.validator,
-    this.onSubmit, // Added onSubmit parameter
+    this.onSubmit,
+    this.mustHave50Characters = false, // New parameter to enforce character count
   });
 
   final TextEditingController? controller;
   final String? hint;
   final bool isPassword;
   final Function(String)? onChanged;
-  final String? Function(String?)? validator; // Validator parameter added
-  final Function(String)? onSubmit; // onSubmit callback
+  final String? Function(String?)? validator;
+  final Function(String)? onSubmit;
+  final bool mustHave50Characters; // Optional parameter to enforce character count
 
   @override
   _CustomTextFormFieldWidgetState createState() =>
@@ -39,8 +41,22 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
       controller: widget.controller,
       obscureText: isObscured,
       onChanged: widget.onChanged,
-      validator: widget.validator, // Validator passed to the TextFormField
-      onFieldSubmitted: widget.onSubmit, // Handle on submit action
+      validator: (value) {
+        // Use provided validator if available
+        if (widget.validator != null) {
+          return widget.validator!(value);
+        }
+
+        // Additional validation for 50 characters
+        if (widget.mustHave50Characters && value != null) {
+          if (value.trim().length < 50) {
+            return 'Please enter at least 50 characters.';
+          }
+        }
+
+        return null;
+      },
+      onFieldSubmitted: widget.onSubmit,
       style: TextStyle(
         color: Colors.white,
         fontSize: 16.sp,
@@ -49,7 +65,7 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
         hintText: widget.hint,
         hintStyle: TextStyle(color: Colors.grey[500]),
         filled: true,
-        fillColor: const Color(0xFF342F3F), // Matches the darker background
+        fillColor: const Color(0xFF342F3F),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),

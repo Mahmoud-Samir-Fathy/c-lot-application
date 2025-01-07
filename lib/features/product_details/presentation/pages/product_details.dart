@@ -110,66 +110,64 @@ class ProductDetails extends StatelessWidget {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state is AddToCartSuccessState) {
-                        return SizedBox(
-                          width: double.infinity,
-                          height: 60.h,
-                          child: MaterialButton(
-                            onPressed: () {
-                              var sizeCubit = SizeCubit.get(context);
-                              var colorCubit = ColorCubit.get(context);
-                              var quantityCubit = QuantityCubit.get(context);
-                              int quantity = quantityCubit.state;
-                              double totalPrice =
-                                  quantity * product.price.toDouble();
-                              String selectedColor = product
-                                  .colors[colorCubit.selectedIndex].title;
-                              cubit.addToCart(
-                                  AddToCartEntity(
-                                      productId: product.productId,
-                                      productTitle: product.title,
-                                      productSize: product
-                                          .sizes[sizeCubit.selectedIndex],
-                                      productColor: selectedColor,
-                                      productImage: product.image[0],
-                                      addToCartDate: Timestamp.now(),
-                                      productQuantity: quantity,
-                                      totalPrice: totalPrice,
-                                      productPrice: product.price.toDouble()),
-                                  context);
-                            },
-                            color: AppColors.primary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.r)),
-                            child: Row(
-                              children: [
-                                BlocBuilder<QuantityCubit, int>(
-                                  builder: (context, state) {
-                                    var cubit = QuantityCubit.get(context);
-                                    var price = cubit.calculateTotalPrice(
-                                        quantity: state, price: product.price);
-                                    return Text(
-                                      '\$${price.toStringAsFixed(2)}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.sp),
-                                    );
-                                  },
-                                ),
-                                const Spacer(),
-                                Text(
-                                  'Add to Bag',
-                                  style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Container();
                       }
+                      return SizedBox(
+                        width: double.infinity,
+                        height: 60.h,
+                        child: MaterialButton(
+                          onPressed: () {
+                            var sizeCubit = SizeCubit.get(context);
+                            var colorCubit = ColorCubit.get(context);
+                            var quantityCubit = QuantityCubit.get(context);
+                            int quantity = quantityCubit.state;
+                            double totalPrice =
+                                quantity * product.price.toDouble();
+                            String selectedColor = product
+                                .colors[colorCubit.selectedIndex].title;
+                            cubit.addToCart(
+                                AddToCartEntity(
+                                    productId: product.productId,
+                                    productTitle: product.title,
+                                    productSize: product
+                                        .sizes[sizeCubit.selectedIndex],
+                                    productColor: selectedColor,
+                                    productImage: product.image[0],
+                                    addToCartDate: Timestamp.now(),
+                                    productQuantity: quantity,
+                                    totalPrice: totalPrice,
+                                    productPrice: product.price.toDouble()),
+                                context);
+                          },
+                          color: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.r)),
+                          child: Row(
+                            children: [
+                              BlocBuilder<QuantityCubit, int>(
+                                builder: (context, state) {
+                                  var cubit = QuantityCubit.get(context);
+                                  var price = cubit.calculateTotalPrice(
+                                      quantity: state, price: product.price);
+                                  return Text(
+                                    '\$${price.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp),
+                                  );
+                                },
+                              ),
+                              const Spacer(),
+                              Text(
+                                'Add to Bag',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+
                     },
                   )
                 ],

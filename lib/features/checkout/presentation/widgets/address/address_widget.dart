@@ -26,7 +26,6 @@ class AddressWidget extends StatelessWidget {
             BlocBuilder<OrderRegisterCubit, OrderRegisterStates>(
               builder: (context, state) {
                 if(state is AddressChangeState){
-                  var addressText=OrderRegisterCubit.get(context).address;
                   return Expanded(
                     flex: 4,
                     child: Column(
@@ -43,7 +42,7 @@ class AddressWidget extends StatelessWidget {
                         Text(
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          addressText!,
+                          state.address,
                           style: TextStyle(
                               color: AppColors.buttonTextColor,
                               fontSize: 18.sp,

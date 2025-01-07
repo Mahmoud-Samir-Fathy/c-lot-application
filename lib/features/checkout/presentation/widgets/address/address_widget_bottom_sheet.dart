@@ -15,50 +15,83 @@ class AddressWidgetBottomSheet extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = OrderRegisterCubit.get(context);
-        return Form(
-          child: Container(
-            color: AppColors.secondBackground,
-            child: Padding(
-              padding: EdgeInsets.all(8.0.sp),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                key: cubit.formKey,
-                children: [
-                  Text(
-                    'Enter your Address and be specific:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                        color: AppColors.buttonTextColor),
+        return Container(
+          color: AppColors.secondBackground,
+          child: Padding(
+            padding: EdgeInsets.all(8.0.sp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Enter your Address and be specific:',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                      color: AppColors.buttonTextColor),
+                ),
+                SizedBox(height: 15.h),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.buttonTextColor),
+                    borderRadius: BorderRadius.circular(30.r),
                   ),
-                  SizedBox(height: 15.h,),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.buttonTextColor),
-                      borderRadius: BorderRadius.circular(30.r),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.r),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.0.h),
-                        child: CustomTextFormFieldWidget(
-                          onSubmit: (value){
-                            cubit.addressChange(value);
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.r),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5.0.h),
+                      child: CustomTextFormFieldWidget(
+                        mustHave50Characters: true,
+                        onSubmit: (value) {
+                          if (value.length >= 50) {
+                            cubit.updateAddress(value);
+                            print("Address updated: $value"); // Debugging
                             Navigator.pop(context);
-                          },
-
-                          controller: cubit.addressController,
-                          hint: 'Your Address',
-                        ),
+                          } else {
+                            showCustomSnackBar(context, 'Address must be at least 50 characters');
+                          }
+                        },
+                        controller: cubit.addressController,
+                        hint: 'Your Address',
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+                if (state is OrderRegisterLoadingState)
+                  const Center(child: CircularProgressIndicator()), // Show loading state
+              ],
             ),
           ),
         );
       },
     );
+  }
+
+  void showCustomSnackBar(BuildContext context, String message) {
+    final overlay = Overlay.of(context);
+    final overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: 50.0.h,
+        left: 20.0.w,
+        right: 20.0.w,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+    overlay.insert(overlayEntry);
+    Future.delayed(const Duration(seconds: 3), () {
+      overlayEntry.remove();
+    });
   }
 }

@@ -14,13 +14,11 @@ class OrderRegisterCubit extends Cubit<OrderRegisterStates> {
   static OrderRegisterCubit get(context) => BlocProvider.of(context);
 
   final TextEditingController addressController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String? address;
-
-  void addressChange(String value) {
-    address = value;
-    emit(AddressChangeState());
+  void updateAddress(String newAddress) {
+    addressController.text = newAddress;
+    emit(AddressChangeState(address: addressController.text));
   }
+
 
   Future<void> registerOrder(OrderRegistrationEntity order, BuildContext context) async {
     emit(OrderRegisterLoadingState());
@@ -28,11 +26,11 @@ class OrderRegisterCubit extends Cubit<OrderRegisterStates> {
       final result =
       await orderRegisterUseCase.orderRegistrationRepository.registerOrder(order);
 
-      result.fold((failure) {
+      result.fold(
+            (failure) {
           emit(OrderRegisterErrorState(message: failure.toString()));
-          print("###########################################${failure.toString()}");
-
-            },
+          print("Error: ${failure.toString()}");
+        },
             (response) {
           emit(OrderRegisterSuccessState());
           AppNavigators.pushAndReplacement(context, AppRoutes.orderSuccessful);
@@ -40,7 +38,7 @@ class OrderRegisterCubit extends Cubit<OrderRegisterStates> {
       );
     } catch (e) {
       emit(OrderRegisterErrorState(message: e.toString()));
-      print("###########################################${e.toString()}");
+      print("Error: ${e.toString()}");
     }
   }
 }

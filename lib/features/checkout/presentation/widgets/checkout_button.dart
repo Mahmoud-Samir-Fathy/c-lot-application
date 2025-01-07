@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class CheckoutButton extends StatelessWidget {
   final List<CartEntity> product;
+
   const CheckoutButton({super.key, required this.product});
 
   @override
@@ -32,7 +32,7 @@ class CheckoutButton extends StatelessWidget {
                 Text(
                   'Subtotal',
                   style:
-                  TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
+                      TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
                 ),
                 const Spacer(),
                 Text('\$${CartHelper.calculatingSubTotal(product)}'),
@@ -46,7 +46,7 @@ class CheckoutButton extends StatelessWidget {
                 Text(
                   'Shipping Cost',
                   style:
-                  TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
+                      TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
                 ),
                 const Spacer(),
                 const Text('\$${8}'),
@@ -60,7 +60,7 @@ class CheckoutButton extends StatelessWidget {
                 Text(
                   'Tax',
                   style:
-                  TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
+                      TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
                 ),
                 const Spacer(),
                 const Text('\$${0}'),
@@ -74,17 +74,17 @@ class CheckoutButton extends StatelessWidget {
                 Text(
                   'Total',
                   style:
-                  TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
+                      TextStyle(color: AppColors.searchColor, fontSize: 15.sp),
                 ),
                 const Spacer(),
                 Text(
-                  '\$${CartHelper.calculatingSubTotal(product) + 8}',)
+                  '\$${CartHelper.calculatingSubTotal(product) + 8}',
+                )
               ],
             ),
             SizedBox(
               height: 20.h,
             ),
-
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.r),
@@ -97,27 +97,43 @@ class CheckoutButton extends StatelessWidget {
                 child: BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
                   listener: (context, state) {},
                   builder: (context, state) {
-                    return MaterialButton(
+                   return MaterialButton(
                       onPressed: () {
                         var cubit = context.read<OrderRegisterCubit>();
-                        cubit.registerOrder(OrderRegistrationEntity(
-                            userAddress: cubit.address.toString(),
-                            products: product,
-                            totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
-                            itemCount: product.length.toInt(),
-                            createdDate: Timestamp.now()),context);
+                        if (state is AddressChangeState) {
+                          if(state.address.isNotEmpty) {
+                            cubit.registerOrder(
+                            OrderRegistrationEntity(
+                              userAddress: cubit.addressController.text,
+                              products: product,
+                              totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
+                              itemCount: product.length,
+                              createdDate: Timestamp.now(),
+                            ),
+                            context,
+                          );
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please enter your address'),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
                       },
                       child: Row(
                         children: [
-                          Text('\$${CartHelper.calculatingSubTotal(product) +
-                              8}'),
+                          Text('\$${CartHelper.calculatingSubTotal(product) + 8}'),
                           const Spacer(),
                           Text(
                             'Place Order',
                             style: TextStyle(
-                                color: AppColors.buttonTextColor,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold),
+                              color: AppColors.buttonTextColor,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ],
                       ),
