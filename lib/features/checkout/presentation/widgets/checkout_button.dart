@@ -94,21 +94,22 @@ class CheckoutButton extends StatelessWidget {
               child: BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
                 listener: (context, state) {},
                 builder: (context, state) {
-                 return MaterialButton(
+                  return MaterialButton(
                     onPressed: () {
                       var cubit = context.read<OrderRegisterCubit>();
                       if (cubit.addressController.text.isNotEmpty) {
-                          cubit.registerOrder(
+                        cubit.registerOrder(
                           OrderRegistrationEntity(
                             userAddress: cubit.addressController.text,
                             products: product,
-                            totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
+                            totalPrice:
+                                CartHelper.calculatingSubTotal(product) +
+                                    8.toDouble(),
                             itemCount: product.length,
                             createdDate: Timestamp.now(),
                           ),
                           context,
                         );
-
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -121,7 +122,8 @@ class CheckoutButton extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        Text('\$${CartHelper.calculatingSubTotal(product) + 8}'),
+                        Text(
+                            '\$${CartHelper.calculatingSubTotal(product) + 8}'),
                         const Spacer(),
                         Text(
                           'Place Order',

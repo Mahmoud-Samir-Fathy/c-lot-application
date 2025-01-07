@@ -1,5 +1,7 @@
+import 'package:e_commerce_app/config/routes.dart';
 import 'package:e_commerce_app/core/asset_manager/app_images.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
+import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
 import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/cart/domain/entities/get_from_cart_entity.dart';
 import 'package:e_commerce_app/features/cart/presentation/manager/cubit.dart';
@@ -31,21 +33,26 @@ class CartPage extends StatelessWidget {
             if (state is GetFromCartSuccessState) {
               List<CartEntity> cartItem = state.cart;
               return Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+                padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                 child: Column(
                   children: [
                     Expanded(
                       child: ListView.separated(
-                        itemBuilder: (context, index) => CartItem(cart: cartItem[index],),
-                        separatorBuilder: (context, index) => SizedBox(height: 10.h),
+                        itemBuilder: (context, index) => CartItem(
+                          cart: cartItem[index],
+                        ),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10.h),
                         itemCount: state.cart.length,
                       ),
                     ),
-                     CheckoutWidget(product: cartItem,),
+                    CheckoutWidget(
+                      product: cartItem,
+                    ),
                   ],
                 ),
               );
-            }else if(state is CartLoadingState){
+            } else if (state is CartLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
             return Center(
@@ -69,11 +76,13 @@ class CartPage extends StatelessWidget {
                       child: Container(
                           color: AppColors.primary,
                           child: MaterialButton(
-                            onPressed: () {},
-                            child:  Text(
+                            onPressed: () {
+                              AppNavigators.push(context, AppRoutes.categories);
+                            },
+                            child: Text(
                               'Explore Categories',
-                              style:
-                              TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18.sp),
                             ),
                           )))
                 ],
