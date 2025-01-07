@@ -84,60 +84,73 @@ class CheckoutButton extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.r),
-                color: AppColors.primary,
-              ),
-              width: double.infinity,
-              height: 50.h,
-              child: BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  return MaterialButton(
-                    onPressed: () {
-                      var cubit = context.read<OrderRegisterCubit>();
-                      if (cubit.addressController.text.isNotEmpty) {
-                        cubit.registerOrder(
-                          OrderRegistrationEntity(
-                            userAddress: cubit.addressController.text,
-                            products: product,
-                            totalPrice:
-                                CartHelper.calculatingSubTotal(product) +
-                                    8.toDouble(),
-                            itemCount: product.length,
-                            createdDate: Timestamp.now(),
-                          ),
-                          context,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please enter your address'),
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                            '\$${CartHelper.calculatingSubTotal(product) + 8}'),
-                        const Spacer(),
-                        Text(
-                          'Place Order',
-                          style: TextStyle(
-                            color: AppColors.buttonTextColor,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+            BlocConsumer<OrderRegisterCubit, OrderRegisterStates>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is OrderRegisterLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
-                },
-              ),
+                }
+                return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.r),
+                      color: AppColors.primary,
+                    ),
+                    width: double.infinity,
+                    height: 50.h,
+                    child: MaterialButton(
+                      onPressed: () {
+                        var cubit = context.read<OrderRegisterCubit>();
+                        if (cubit.addressController.text.isNotEmpty&&cubit.addressController.text.length>=50) {
+                          cubit.registerOrder(
+                            OrderRegistrationEntity(
+                              userAddress: cubit.addressController.text,
+                              products: product,
+                              totalPrice:
+                                  CartHelper.calculatingSubTotal(product) +
+                                      8.toDouble(),
+                              itemCount: product.length,
+                              createdDate: Timestamp.now(),
+                            ),
+                            context,
+                          );
+                        }
+                        else if(cubit.addressController.text.length<50){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Address must be at least 50 characters'),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please Enter you Address'),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                              '\$${CartHelper.calculatingSubTotal(product) + 8}'),
+                          const Spacer(),
+                          Text(
+                            'Place Order',
+                            style: TextStyle(
+                              color: AppColors.buttonTextColor,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ));
+              },
             )
           ],
         ),

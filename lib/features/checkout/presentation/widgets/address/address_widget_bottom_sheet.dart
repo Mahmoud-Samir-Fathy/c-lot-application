@@ -41,10 +41,12 @@ class AddressWidgetBottomSheet extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 5.0.h),
                       child: CustomTextFormFieldWidget(
                         mustHave50Characters: true,
+                        onChanged: (value){
+                          cubit.updateAddress(value);
+                        },
                         onSubmit: (value) {
                           if (value.length >= 50) {
                             cubit.updateAddress(value);
-                            print("Address updated: $value"); // Debugging
                             Navigator.pop(context);
                           } else {
                             showCustomSnackBar(context, 'Address must be at least 50 characters');
