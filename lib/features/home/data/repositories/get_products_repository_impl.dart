@@ -95,8 +95,20 @@ class GetProductsRepositoryImpl implements GetProductsRepository {
   }
 
   @override
-  Future<Either> getFavouriteProducts() {
-    // TODO: implement getFavouriteProducts
-    throw UnimplementedError();
+  Future<Either> getFavouriteProducts() async{
+    var data = await fireBaseGetProductDataSource.getTopSellingProducts();
+    return data.fold((error) => Left(error), (response) {
+      if (response == null || (response as List).isEmpty) {
+        return Left(Exception('No Products found.'));
+      }
+      try {
+        final products = (response)
+            .map((product) => ProductEntity.fromJson(product))
+            .toList();
+        return Right(products);
+      } catch (e) {
+        return Left(Exception('Failed to parse products: $e'));
+      }
+    });
   }
 }

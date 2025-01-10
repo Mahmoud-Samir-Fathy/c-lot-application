@@ -30,6 +30,7 @@ import 'package:e_commerce_app/features/home/domain/repositories/get_products_re
 import 'package:e_commerce_app/features/home/domain/repositories/get_user_repository.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_all_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_categories_use_case.dart';
+import 'package:e_commerce_app/features/home/domain/use_cases/get_favourites_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_products_by_category_id_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_Top_Selling_products_use_case.dart';
@@ -143,6 +144,8 @@ Future<void> init() async {
           () => SetFavouritesUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<IsFavouriteUseCase>(
           () => IsFavouriteUseCase(getProductsRepository: sl()));
+  sl.registerLazySingleton<GetFavouritesUseCase>(
+          () => GetFavouritesUseCase(getProductsRepository: sl()));
   // Cubit
   sl.registerFactory<SplashCubit>(() => SplashCubit(authenticationUseCases: sl()));
   sl.registerFactory<SignUpCubit>(() => SignUpCubit(signupUseCase: sl()));
