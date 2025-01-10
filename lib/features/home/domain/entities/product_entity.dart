@@ -36,7 +36,7 @@ class ProductEntity {
       discountPrice: json['discountPrice'] as int,
       gender: json['gender'] as String,
       categoryDate: json['categoryDate'] as Timestamp,
-      image:List<String>.from(json['image'] as List),
+      image: List<String>.from(json['image'] as List),
       price: json['price'] as int,
       salesNumber: json['salesNumber'] as int,
       sizes: List<int>.from(json['sizes'] as List),
@@ -47,6 +47,19 @@ class ProductEntity {
     );
   }
 
-  // To JSON
-
+  Map<String, dynamic> toMap() {
+    return {
+      'productId': productId,
+      'categoryId': categoryId,
+      'discountPrice': discountPrice,
+      'gender': gender,
+      'categoryDate': categoryDate,
+      'image': image,
+      'price': price,
+      'salesNumber': salesNumber,
+      'sizes': sizes,
+      'title': title,
+      'colors': colors.map((color) => color.toMap()).toList(),
+    };
+  }
 }

@@ -10,5 +10,10 @@ class ColorsEntity {
       title: json['title'] as String,
     );
   }
-
+  Map<String, dynamic> toMap() {
+    return {
+      'hexcolor': hexcolor,
+      'title': title,
+    };
+  }
 }

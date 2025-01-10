@@ -80,4 +80,10 @@ class GetProductsRepositoryImpl implements GetProductsRepository {
       }
     });
   }
+
+  @override
+  Future<Either> setToFavourite(ProductEntity product) async {
+    var data = await fireBaseGetProductDataSource.setToFavourite(product);
+    return data.fold((error) =>  const Left(Error), (data) => Right(data));
+  }
 }
