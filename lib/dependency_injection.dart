@@ -34,6 +34,7 @@ import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_product
 import 'package:e_commerce_app/features/home/domain/use_cases/get_products_by_category_id_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_Top_Selling_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_user_use_case.dart';
+import 'package:e_commerce_app/features/home/domain/use_cases/is_favourite_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/set_favourites_use_case.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/app_bar_manager/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/categories_manager/cubit.dart';
@@ -140,6 +141,8 @@ Future<void> init() async {
           () => OrderRegisterUseCase(orderRegistrationRepository: sl()));
   sl.registerLazySingleton<SetFavouritesUseCase>(
           () => SetFavouritesUseCase(getProductsRepository: sl()));
+  sl.registerLazySingleton<IsFavouriteUseCase>(
+          () => IsFavouriteUseCase(getProductsRepository: sl()));
   // Cubit
   sl.registerFactory<SplashCubit>(() => SplashCubit(authenticationUseCases: sl()));
   sl.registerFactory<SignUpCubit>(() => SignUpCubit(signupUseCase: sl()));
@@ -154,4 +157,5 @@ Future<void> init() async {
   sl.registerFactory<AddToCartCubit>(() => AddToCartCubit(addToCartUseCase: sl()));
   sl.registerFactory<CartCubit>(() => CartCubit(getFromCartUseCase: sl(), removeFromCartUseCase:  sl(),));
   sl.registerFactory<OrderRegisterCubit>(() => OrderRegisterCubit(orderRegisterUseCase: sl()));
+
 }

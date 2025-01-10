@@ -13,6 +13,8 @@ abstract class FireBaseGetProductDataSource {
   Future<Either> getAllProducts(String title);
 
   Future<Either> setToFavourite(ProductEntity product);
+
+  Future<bool> isFavourite(String productId);
 }
 
 class FireBaseGetProductDataSourceImpl implements FireBaseGetProductDataSource {
@@ -102,6 +104,26 @@ class FireBaseGetProductDataSourceImpl implements FireBaseGetProductDataSource {
       }
     } catch (e) {
       return const Left('Something went wrong');
+    }
+  }
+
+  @override
+  Future<bool> isFavourite(String productId) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+      var dataReturned = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .collection('favourites')
+          .where('productId', isEqualTo: productId)
+          .get();
+      if (dataReturned.docs.isNotEmpty) {
+        return true;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      return false;
     }
   }
 }

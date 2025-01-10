@@ -7,4 +7,6 @@ abstract class GetProductsRepository{
   Future<Either> getProductsByCategoryId(String categoryId);
   Future<Either> getAllProducts(String title);
   Future <Either> setToFavourite(ProductEntity product);
+  Future <bool> isFavourite(String productId);
+  Future <Either> getFavouriteProducts();
 }

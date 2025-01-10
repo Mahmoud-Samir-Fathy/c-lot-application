@@ -86,4 +86,17 @@ class GetProductsRepositoryImpl implements GetProductsRepository {
     var data = await fireBaseGetProductDataSource.setToFavourite(product);
     return data.fold((error) =>  const Left(Error), (data) => Right(data));
   }
+
+
+
+  @override
+  Future<bool> isFavourite(String productId) async{
+    return await fireBaseGetProductDataSource.isFavourite(productId);
+  }
+
+  @override
+  Future<Either> getFavouriteProducts() {
+    // TODO: implement getFavouriteProducts
+    throw UnimplementedError();
+  }
 }
