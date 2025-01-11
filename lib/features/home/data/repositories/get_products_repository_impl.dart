@@ -102,9 +102,7 @@ class GetProductsRepositoryImpl implements GetProductsRepository {
         return Left(Exception('No Products found.'));
       }
       try {
-        final products = (response)
-            .map((product) => ProductEntity.fromJson(product))
-            .toList();
+        final products = (response).map((product) => ProductEntity.fromJson(product)).toList();
         return Right(products);
       } catch (e) {
         return Left(Exception('Failed to parse products: $e'));

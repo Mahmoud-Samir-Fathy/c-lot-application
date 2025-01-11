@@ -39,6 +39,7 @@ import 'package:e_commerce_app/features/home/domain/use_cases/is_favourite_use_c
 import 'package:e_commerce_app/features/home/domain/use_cases/set_favourites_use_case.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/app_bar_manager/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/categories_manager/cubit.dart';
+import 'package:e_commerce_app/features/home/presentation/manager/favourite_manager/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/new_in_manager/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/product_top_selling_manager/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/products_by_category_manager/cubit.dart';
@@ -78,16 +79,16 @@ Future<void> init() async {
   sl.registerLazySingleton<FireBaseGetUserDataSource>(
       () => FireBaseGetUserDataSourceImpl());
   sl.registerLazySingleton<FireBaseGetCategoryDataSource>(
-          () => FireBaseGetCategoryDataSourceImpl());
+      () => FireBaseGetCategoryDataSourceImpl());
 
   sl.registerLazySingleton<FireBaseGetProductDataSource>(
-          () => FireBaseGetProductDataSourceImpl());
+      () => FireBaseGetProductDataSourceImpl());
   sl.registerLazySingleton<FireBaseProductDataSource>(
-          () => FireBaseProductDataSourceImpl());
+      () => FireBaseProductDataSourceImpl());
   sl.registerLazySingleton<FireBaseCartItemsDataSource>(
-          () => FireBaseCartItemsDataSourceImpl());
+      () => FireBaseCartItemsDataSourceImpl());
   sl.registerLazySingleton<FireBaseOrderRegistrationDataSource>(
-          () => FireBaseOrderRegistrationDataSourceImpl());
+      () => FireBaseOrderRegistrationDataSourceImpl());
 
   // Repository
   sl.registerLazySingleton<RegisterRepository>(
@@ -101,15 +102,16 @@ Future<void> init() async {
   sl.registerLazySingleton<GetUserRepository>(
       () => GetUserRepositoryImpl(fireBaseGetUserDataSource: sl()));
   sl.registerLazySingleton<GetCategoriesRepository>(
-          () => GetCategoriesRepositoryImpl(fireBaseGetCategoryDataSource: sl()));
+      () => GetCategoriesRepositoryImpl(fireBaseGetCategoryDataSource: sl()));
   sl.registerLazySingleton<GetProductsRepository>(
-          () => GetProductsRepositoryImpl(fireBaseGetProductDataSource: sl()));
+      () => GetProductsRepositoryImpl(fireBaseGetProductDataSource: sl()));
   sl.registerLazySingleton<ProductRepository>(
-          () => ProductRepositoryImpl(fireBaseProductDataSource: sl()));
+      () => ProductRepositoryImpl(fireBaseProductDataSource: sl()));
   sl.registerLazySingleton<CartRepository>(
-          () => CartRepositoryImpl(fireBaseCartItemsDataSource: sl()));
-  sl.registerLazySingleton<OrderRegistrationRepository>(
-          () => OrderRegistrationRepositoryImpl(fireBaseOrderRegistrationDataSource: sl()));
+      () => CartRepositoryImpl(fireBaseCartItemsDataSource: sl()));
+  sl.registerLazySingleton<OrderRegistrationRepository>(() =>
+      OrderRegistrationRepositoryImpl(
+          fireBaseOrderRegistrationDataSource: sl()));
 
   // Use case
   sl.registerLazySingleton<SignupUseCase>(
@@ -123,42 +125,55 @@ Future<void> init() async {
   sl.registerLazySingleton<GetUserUseCase>(
       () => GetUserUseCase(getUserRepository: sl()));
   sl.registerLazySingleton<GetCategoriesUseCase>(
-          () => GetCategoriesUseCase(getCategoriesRepository: sl()));
+      () => GetCategoriesUseCase(getCategoriesRepository: sl()));
   sl.registerLazySingleton<GetTopSellingProductsUseCase>(
-          () => GetTopSellingProductsUseCase(getProductsRepository: sl()));
+      () => GetTopSellingProductsUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetNewInProductsUseCase>(
-          () => GetNewInProductsUseCase(getProductsRepository: sl()));
+      () => GetNewInProductsUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetProductsByCategoryIdUseCase>(
-          () => GetProductsByCategoryIdUseCase(getProductsRepository: sl()));
+      () => GetProductsByCategoryIdUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetAllProductsUseCase>(
-          () => GetAllProductsUseCase(getProductsRepository: sl()));
+      () => GetAllProductsUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<AddToCartUseCase>(
-          () => AddToCartUseCase(productRepository: sl()));
+      () => AddToCartUseCase(productRepository: sl()));
   sl.registerLazySingleton<GetFromCartUseCase>(
-          () => GetFromCartUseCase(cartRepository: sl()));
+      () => GetFromCartUseCase(cartRepository: sl()));
   sl.registerLazySingleton<RemoveFromCartUseCase>(
-          () => RemoveFromCartUseCase(cartRepository: sl()));
+      () => RemoveFromCartUseCase(cartRepository: sl()));
   sl.registerLazySingleton<OrderRegisterUseCase>(
-          () => OrderRegisterUseCase(orderRegistrationRepository: sl()));
+      () => OrderRegisterUseCase(orderRegistrationRepository: sl()));
   sl.registerLazySingleton<SetFavouritesUseCase>(
-          () => SetFavouritesUseCase(getProductsRepository: sl()));
+      () => SetFavouritesUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<IsFavouriteUseCase>(
-          () => IsFavouriteUseCase(getProductsRepository: sl()));
+      () => IsFavouriteUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetFavouritesUseCase>(
-          () => GetFavouritesUseCase(getProductsRepository: sl()));
+      () => GetFavouritesUseCase(getProductsRepository: sl()));
   // Cubit
-  sl.registerFactory<SplashCubit>(() => SplashCubit(authenticationUseCases: sl()));
+  sl.registerFactory<SplashCubit>(
+      () => SplashCubit(authenticationUseCases: sl()));
   sl.registerFactory<SignUpCubit>(() => SignUpCubit(signupUseCase: sl()));
   sl.registerFactory<SignInCubit>(() => SignInCubit(signInUseCase: sl()));
-  sl.registerFactory<UserReqPassCubit>(() => UserReqPassCubit(userRequestPasswordUseCase: sl()));
+  sl.registerFactory<UserReqPassCubit>(
+      () => UserReqPassCubit(userRequestPasswordUseCase: sl()));
   sl.registerFactory<GetUserCubit>(() => GetUserCubit(getUserUseCase: sl()));
-  sl.registerFactory<GetCategoryCubit>(() => GetCategoryCubit(getCategoriesUseCase: sl()));
-  sl.registerFactory<GetProductCubit>(() => GetProductCubit(getTopSellingProductsUseCase: sl()));
-  sl.registerFactory<GetNewInProductCubit>(() => GetNewInProductCubit(getNewInProductsUseCase: sl()));
-  sl.registerFactory<GetProductsByCategoryCubit>(() => GetProductsByCategoryCubit(getProductsByCategoryIdUseCase: sl()));
-  sl.registerFactory<GetAllProductsCubit>(() => GetAllProductsCubit(getAllProductsUseCase: sl()));
-  sl.registerFactory<AddToCartCubit>(() => AddToCartCubit(addToCartUseCase: sl()));
-  sl.registerFactory<CartCubit>(() => CartCubit(getFromCartUseCase: sl(), removeFromCartUseCase:  sl(),));
-  sl.registerFactory<OrderRegisterCubit>(() => OrderRegisterCubit(orderRegisterUseCase: sl()));
-
+  sl.registerFactory<GetCategoryCubit>(
+      () => GetCategoryCubit(getCategoriesUseCase: sl()));
+  sl.registerFactory<GetProductCubit>(
+      () => GetProductCubit(getTopSellingProductsUseCase: sl()));
+  sl.registerFactory<GetNewInProductCubit>(
+      () => GetNewInProductCubit(getNewInProductsUseCase: sl()));
+  sl.registerFactory<GetProductsByCategoryCubit>(
+      () => GetProductsByCategoryCubit(getProductsByCategoryIdUseCase: sl()));
+  sl.registerFactory<GetAllProductsCubit>(
+      () => GetAllProductsCubit(getAllProductsUseCase: sl()));
+  sl.registerFactory<AddToCartCubit>(
+      () => AddToCartCubit(addToCartUseCase: sl()));
+  sl.registerFactory<CartCubit>(() => CartCubit(
+        getFromCartUseCase: sl(),
+        removeFromCartUseCase: sl(),
+      ));
+  sl.registerFactory<OrderRegisterCubit>(
+      () => OrderRegisterCubit(orderRegisterUseCase: sl()));
+  sl.registerFactory<FavouriteCubit>(
+      () => FavouriteCubit(setFavouriteUseCase: sl(), isFavourite: sl()));
 }
