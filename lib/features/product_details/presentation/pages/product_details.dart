@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
+import 'package:e_commerce_app/features/home/presentation/manager/favourite_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/domain/entities/add_to_cart_entity.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/add_to_cart_manager/cubit.dart';
 import 'package:e_commerce_app/features/product_details/presentation/manager/add_to_cart_manager/states.dart';
@@ -30,13 +31,28 @@ class ProductDetails extends StatelessWidget {
         BlocProvider<QuantityCubit>(create: (context) => QuantityCubit()),
         BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
         BlocProvider<AddToCartCubit>(create: (context) => sl<AddToCartCubit>()),
-      ],
+        BlocProvider<FavouriteCubit>(
+          create: (context) {
+            final cubit = sl<FavouriteCubit>();
+            cubit.initializeFavouriteStatus(product.productId); // Initialize state
+            return cubit;
+          },
+        ),      ],
       child: Scaffold(
         appBar: BasicAppbar(
           hideBack: false,
-          action: IconButton(
-            icon: const Icon(Icons.favorite_outline),
-            onPressed: () {},
+          action: BlocBuilder<FavouriteCubit, bool>(
+            builder: (context, state) {
+              var cubit = FavouriteCubit.get(context);
+              return IconButton(
+                icon: state
+                    ? const Icon(Icons.favorite)
+                    : const Icon(Icons.favorite_outline),
+                onPressed: () {
+                  cubit.onTap(product);
+                },
+              );
+            },
           ),
         ),
         body: Column(
@@ -122,14 +138,14 @@ class ProductDetails extends StatelessWidget {
                             int quantity = quantityCubit.state;
                             double totalPrice =
                                 quantity * product.price.toDouble();
-                            String selectedColor = product
-                                .colors[colorCubit.selectedIndex].title;
+                            String selectedColor =
+                                product.colors[colorCubit.selectedIndex].title;
                             cubit.addToCart(
                                 AddToCartEntity(
                                     productId: product.productId,
                                     productTitle: product.title,
-                                    productSize: product
-                                        .sizes[sizeCubit.selectedIndex],
+                                    productSize:
+                                        product.sizes[sizeCubit.selectedIndex],
                                     productColor: selectedColor,
                                     productImage: product.image[0],
                                     addToCartDate: Timestamp.now(),
@@ -167,7 +183,6 @@ class ProductDetails extends StatelessWidget {
                           ),
                         ),
                       );
-
                     },
                   )
                 ],

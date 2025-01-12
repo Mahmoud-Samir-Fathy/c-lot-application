@@ -119,11 +119,7 @@ class FireBaseGetProductDataSourceImpl implements FireBaseGetProductDataSource {
           .collection('favourites')
           .where('productId', isEqualTo: productId)
           .get();
-      if (dataReturned.docs.isNotEmpty) {
-        return true;
-      } else {
-        return true;
-      }
+    return dataReturned.docs.isNotEmpty;
     } catch (e) {
       return false;
     }
