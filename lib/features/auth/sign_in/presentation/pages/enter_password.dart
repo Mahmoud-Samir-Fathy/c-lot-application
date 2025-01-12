@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_commerce_app/config/routes.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
@@ -6,7 +5,6 @@ import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/auth/sign_in/domain/entities/signIn_entity.dart';
 import 'package:e_commerce_app/features/auth/sign_in/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/auth/sign_in/presentation/manager/states.dart';
-import 'package:e_commerce_app/features/auth/sign_up/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/shared_widgets/app_bar/custom_appbar.dart';
 import 'package:e_commerce_app/shared_widgets/buttons/custom_material_btn.dart';
 import 'package:e_commerce_app/shared_widgets/custom_text_form_field.dart';
@@ -26,7 +24,7 @@ class EnterPassword extends StatelessWidget {
       child: BlocConsumer<SignInCubit, SignInStates>(
         listener: (context, state) {
           if (state is SignInSuccessState) {
-            AppNavigators.pushAndReplacement(context, AppRoutes.home);
+            AppNavigators.pushAndReplacement(context, AppRoutes.layout);
           } else if (state is SignInErrorState) {
             SnackBar(
               content: Text('Error in sign Up ${state.message}'),

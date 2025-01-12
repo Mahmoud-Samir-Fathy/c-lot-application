@@ -35,7 +35,7 @@ class GenderAndAge extends StatelessWidget {
       child: BlocConsumer<SignUpCubit, SignUpStates>(
         listener: (context, state) {
           if (state is SignUpSuccessState) {
-            AppNavigators.pushAndReplacement(context, AppRoutes.home);
+            AppNavigators.pushAndReplacement(context, AppRoutes.layout);
           } else if (state is SignUpErrorState) {
             SnackBar(
               content: Text('Error in sign Up ${state.message}'),

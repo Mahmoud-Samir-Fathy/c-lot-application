@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/config/routes.dart';
 import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
-import 'package:e_commerce_app/features/auth/sign_in/presentation/pages/sign_in.dart';
 import 'package:e_commerce_app/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:e_commerce_app/features/splash/presentation/cubit/splash_states.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class SplashScreen extends StatelessWidget {
       body: BlocConsumer<SplashCubit, SplashStates>(
         listener: (context, state) {
           if (state is Authenticated) {
-            AppNavigators.pushAndReplacement(context, AppRoutes.home);
+            AppNavigators.pushAndReplacement(context, AppRoutes.layout);
           } else {
             AppNavigators.pushAndReplacement(context, AppRoutes.signIn);
           }

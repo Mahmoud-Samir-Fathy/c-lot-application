@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/app_bottom_nav/presentation/pages/app_navigation_bar.dart';
 import 'package:e_commerce_app/features/auth/forget_password/presentation/pages/forget_password.dart';
 import 'package:e_commerce_app/features/auth/forget_password/presentation/pages/return_sign_in.dart';
 import 'package:e_commerce_app/features/auth/sign_in/presentation/pages/sign_in.dart';
@@ -5,7 +6,6 @@ import 'package:e_commerce_app/features/auth/sign_up/presentation/pages/sign_up.
 import 'package:e_commerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:e_commerce_app/features/checkout/presentation/pages/order_registered_successfully_page.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/categories.dart';
-import 'package:e_commerce_app/features/home/presentation/pages/home_page.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/search_page.dart';
 import 'package:e_commerce_app/features/splash/presentation/pages/splash_screen.dart';
 
@@ -15,11 +15,11 @@ class AppRoutes {
   static String forgetPassword = 'forgetPassword';
   static String signUp = 'signUp';
   static String returnSignIn = 'returnSignIn';
-  static String home = 'home';
   static String categories = 'categories';
   static String search = 'search';
   static String orderSuccessful = 'orderSuccessful';
   static String cart = 'cart';
+  static String layout = 'layout';
 
 
   static get routes {
@@ -29,11 +29,11 @@ class AppRoutes {
       AppRoutes.forgetPassword: (context) => const ForgetPassword(),
       AppRoutes.returnSignIn: (context) => const ReturnSignIn(),
       AppRoutes.signUp: (context) => const SignUp(),
-      AppRoutes.home: (context) => const HomePage(),
       AppRoutes.categories: (context) => const Categories(),
       AppRoutes.search: (context) => const SearchPage(),
       AppRoutes.orderSuccessful: (context) => const OrderRegisteredSuccessfullyPage(),
       AppRoutes.cart: (context) => const CartPage(),
+      AppRoutes.layout: (context) => const AppNavigationBar(),
     };
   }
 }
