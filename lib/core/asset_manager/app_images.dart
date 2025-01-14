@@ -6,4 +6,6 @@ class AppImages{
   static const String searchImage='${imagePath}search$pathType';
   static const String emptyCart='${imagePath}cart$pathType';
   static const String order='${imagePath}order$pathType';
+  static const String bell='${imagePath}bell$pathType';
+  static const String cart_out='${imagePath}cart_out$pathType';
 }

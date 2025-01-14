@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/orders/presentation/widgets/empty_orders.dart';
 import 'package:flutter/material.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -6,7 +7,7 @@ class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Orders')),
+      body: EmptyOrders(),
     );
   }
 }
