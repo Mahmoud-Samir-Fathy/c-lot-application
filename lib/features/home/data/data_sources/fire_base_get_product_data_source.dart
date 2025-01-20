@@ -15,7 +15,6 @@ abstract class FireBaseGetProductDataSource {
   Future<Either> setToFavourite(ProductEntity product);
 
   Future<bool> isFavourite(String productId);
-  Future <Either> getFavouriteProducts();
 
 }
 
@@ -125,15 +124,4 @@ class FireBaseGetProductDataSourceImpl implements FireBaseGetProductDataSource {
     }
   }
 
-  @override
-  Future<Either> getFavouriteProducts() async{
-    try{
-      var user=FirebaseAuth.instance.currentUser;
-      final returnedData= await FirebaseFirestore.instance.collection('users').doc(user!.uid).collection('favourites').get();
-      return Right(returnedData.docs.map((e) => e.data()).toList());
-
-    }catch(e){
-      return const Left('Something went wrong');
-    }
-  }
 }

@@ -7,6 +7,7 @@ import 'package:e_commerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:e_commerce_app/features/checkout/presentation/pages/order_registered_successfully_page.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/categories.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/search_page.dart';
+import 'package:e_commerce_app/features/settings/presentation/pages/favourite_page.dart';
 import 'package:e_commerce_app/features/settings/presentation/pages/wishlist.dart';
 import 'package:e_commerce_app/features/splash/presentation/pages/splash_screen.dart';
 
@@ -22,6 +23,7 @@ class AppRoutes {
   static String cart = 'cart';
   static String layout = 'layout';
   static String wishList = 'wishList';
+  static String favourites = 'favourites';
 
 
   static get routes {
@@ -37,6 +39,7 @@ class AppRoutes {
       AppRoutes.cart: (context) => const CartPage(),
       AppRoutes.layout: (context) => const AppNavigationBar(),
       AppRoutes.wishList: (context) => const Wishlist(),
+      AppRoutes.favourites: (context) => const FavouritePage(),
     };
   }
 }

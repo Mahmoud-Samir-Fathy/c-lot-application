@@ -30,7 +30,10 @@ import 'package:e_commerce_app/features/home/domain/repositories/get_products_re
 import 'package:e_commerce_app/features/home/domain/repositories/get_user_repository.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_all_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_categories_use_case.dart';
-import 'package:e_commerce_app/features/home/domain/use_cases/get_favourites_use_case.dart';
+import 'package:e_commerce_app/features/settings/data/data_sources/fire_base_get_favourites_data_source.dart';
+import 'package:e_commerce_app/features/settings/data/repositories/get_favourites_repository_impl.dart';
+import 'package:e_commerce_app/features/settings/domain/repositories/get_favourites_repository.dart';
+import 'package:e_commerce_app/features/settings/domain/use_cases/get_favourites_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_products_by_category_id_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_Top_Selling_products_use_case.dart';
@@ -48,13 +51,13 @@ import 'package:e_commerce_app/features/product_details/data/data_sources/fire_b
 import 'package:e_commerce_app/features/product_details/data/repositories/product_repository_impl.dart';
 import 'package:e_commerce_app/features/product_details/domain/repositories/product_repository.dart';
 import 'package:e_commerce_app/features/product_details/domain/use_cases/add_to_cart_use_case.dart';
+import 'package:e_commerce_app/features/settings/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/splash/data/data_sources/firebase_authentication_data_source.dart';
 import 'package:e_commerce_app/features/splash/data/repositories/authentication_repository_impl.dart';
 import 'package:e_commerce_app/features/splash/domain/repositories/authentication_repository.dart';
 import 'package:e_commerce_app/features/splash/domain/use_cases/authentication_use_case.dart';
 import 'package:e_commerce_app/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:get_it/get_it.dart';
-
 import 'features/cart/domain/use_cases/remove_from_cart_use_case.dart';
 import 'features/cart/presentation/manager/cubit.dart';
 import 'features/checkout/data/data_sources/fire_base_order_registration_data_source.dart';
@@ -89,6 +92,8 @@ Future<void> init() async {
       () => FireBaseCartItemsDataSourceImpl());
   sl.registerLazySingleton<FireBaseOrderRegistrationDataSource>(
       () => FireBaseOrderRegistrationDataSourceImpl());
+  sl.registerLazySingleton<FireBaseGetFavouritesDataSource>(
+          () => FireBaseGetFavouritesDataSourceImpl());
 
   // Repository
   sl.registerLazySingleton<RegisterRepository>(
@@ -112,6 +117,9 @@ Future<void> init() async {
   sl.registerLazySingleton<OrderRegistrationRepository>(() =>
       OrderRegistrationRepositoryImpl(
           fireBaseOrderRegistrationDataSource: sl()));
+  sl.registerLazySingleton<GetFavouritesRepository>(() =>
+      GetFavouritesRepositoryImpl(
+          fireBaseGetFavouritesDataSource: sl()));
 
   // Use case
   sl.registerLazySingleton<SignupUseCase>(
@@ -147,7 +155,7 @@ Future<void> init() async {
   sl.registerLazySingleton<IsFavouriteUseCase>(
       () => IsFavouriteUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetFavouritesUseCase>(
-      () => GetFavouritesUseCase(getProductsRepository: sl()));
+      () => GetFavouritesUseCase(getFavouritesRepository: sl()));
   // Cubit
   sl.registerFactory<SplashCubit>(
       () => SplashCubit(authenticationUseCases: sl()));
@@ -176,4 +184,6 @@ Future<void> init() async {
       () => OrderRegisterCubit(orderRegisterUseCase: sl()));
   sl.registerFactory<FavouriteCubit>(
       () => FavouriteCubit(setFavouriteUseCase: sl(), isFavourite: sl()));
+  sl.registerFactory<GetFavouriteCubit>(
+      () => GetFavouriteCubit(getFavouriteUseCase: sl()));
 }
