@@ -37,7 +37,9 @@ class ProductDetails extends StatelessWidget {
             cubit.initializeFavouriteStatus(product.productId); // Initialize state
             return cubit;
           },
-        ),      ],
+        ),
+
+      ],
       child: Scaffold(
         appBar: BasicAppbar(
           hideBack: false,

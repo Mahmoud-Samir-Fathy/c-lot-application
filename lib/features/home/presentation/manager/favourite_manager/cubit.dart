@@ -25,6 +25,7 @@ class FavouriteCubit extends Cubit<bool> {
           (error) {},
           (success) {
         emit(success);
+
       },
     );
   }

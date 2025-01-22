@@ -12,8 +12,7 @@ class GetFavouriteCubit extends Cubit<GetFavouriteStates> {
 
   void getFavouriteProduct() async {
     emit(GetFavouriteLoadingState());
-    final data = await getFavouriteUseCase.getFavouritesRepository
-        .getFavouriteProducts();
+    final data = await getFavouriteUseCase.getFavouritesRepository.getFavouriteProducts();
     data.fold((error) => emit(GetFavouriteErrorState(message: error)),
         (response) => emit(GetFavouriteSuccessState(favourites: response)));
   }

@@ -21,9 +21,11 @@ Widget buildProductItem(ProductEntity product,context) => GestureDetector(
           Expanded(
             child: Container(
               color: AppColors.buttonTextColor,
-              child:  Image(
-                image: NetworkImage(product.image[0]),
-                fit: BoxFit.contain,
+              child:  Center(
+                child: Image(
+                  image: NetworkImage(product.image[0]),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
