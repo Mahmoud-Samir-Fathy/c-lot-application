@@ -32,13 +32,8 @@ class ProductDetails extends StatelessWidget {
         BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
         BlocProvider<AddToCartCubit>(create: (context) => sl<AddToCartCubit>()),
         BlocProvider<FavouriteCubit>(
-          create: (context) {
-            final cubit = sl<FavouriteCubit>();
-            cubit.initializeFavouriteStatus(product.productId); // Initialize state
-            return cubit;
-          },
-        ),
-
+            create: (context) => sl<FavouriteCubit>()
+              ..initializeFavouriteStatus(product.productId)),
       ],
       child: Scaffold(
         appBar: BasicAppbar(
