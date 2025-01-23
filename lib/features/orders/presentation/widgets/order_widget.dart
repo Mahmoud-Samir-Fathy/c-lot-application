@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderWidget extends StatelessWidget {
-  const OrderWidget({super.key});
+  final String orderId;
+  final int itemCounts;
+  const OrderWidget({super.key, required this.orderId, required this.itemCounts});
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +33,15 @@ class OrderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Order  #####################',
+                     Text(
+                      'Order $orderId',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(
                       height: 5.h,
                     ),
-                    const Text('No of items:4'),
+                     Text('No of items: $itemCounts'),
                   ],
                 ),
               ),

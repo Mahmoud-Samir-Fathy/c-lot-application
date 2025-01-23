@@ -24,6 +24,7 @@ class AppRoutes {
   static String layout = 'layout';
   static String wishList = 'wishList';
   static String favourites = 'favourites';
+  static String appNav = 'appNav';
 
 
   static get routes {
@@ -40,6 +41,7 @@ class AppRoutes {
       AppRoutes.layout: (context) => const AppNavigationBar(),
       AppRoutes.wishList: (context) => const Wishlist(),
       AppRoutes.favourites: (context) => const FavouritePage(),
+      AppRoutes.appNav: (context) => const AppNavigationBar(),
     };
   }
 }

@@ -13,11 +13,18 @@ class FireBaseOrderRegistrationDataSourceImpl
   Future<Either> registerOrder(OrderRegistrationEntity order) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      await FirebaseFirestore.instance
+      if (user == null) {
+        return const Left('User not logged in');
+      }
+
+      final DocumentReference orderDoc = await FirebaseFirestore.instance
           .collection('users')
-          .doc(user!.uid)
+          .doc(user.uid)
           .collection('orders')
           .add(order.toJson());
+
+      await orderDoc.update({'id': orderDoc.id});
+
       for (var item in order.products) {
         await FirebaseFirestore.instance
             .collection('users')
@@ -26,7 +33,8 @@ class FireBaseOrderRegistrationDataSourceImpl
             .doc(item.id)
             .delete();
       }
-      return const Right('Order Successfully Added');
+
+      return Right({'message': 'Order successfully registered', 'id': orderDoc.id});
     } on FirebaseException catch (e) {
       return Left(e.message.toString());
     }

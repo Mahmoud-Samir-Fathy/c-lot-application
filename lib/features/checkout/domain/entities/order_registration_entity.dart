@@ -8,8 +8,10 @@ class OrderRegistrationEntity {
   final int itemCount;
   final String userAddress;
   final String orderStatus;
+  final String? id;
 
   OrderRegistrationEntity({
+    this.id,
     required this.products,
     required this.createdDate,
     required this.totalPrice,
@@ -26,6 +28,7 @@ class OrderRegistrationEntity {
       itemCount: json['itemCount'] as int,
       userAddress: json['userAddress'] as String,
       orderStatus: json['orderStatus'] as String,
+      id: json['id'] as String?,
     );
   }
 
@@ -37,6 +40,7 @@ class OrderRegistrationEntity {
       'itemCount': itemCount,
       'userAddress': userAddress,
       'orderStatus': orderStatus,
+      'id': id,
     };
   }
 }

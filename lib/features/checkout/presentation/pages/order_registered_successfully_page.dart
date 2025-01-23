@@ -1,5 +1,7 @@
+import 'package:e_commerce_app/config/routes.dart';
 import 'package:e_commerce_app/core/asset_manager/app_images.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
+import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,6 +43,7 @@ class OrderRegisteredSuccessfullyPage extends StatelessWidget{
                        height: 50.h,
                        child: MaterialButton(
                          onPressed: () {
+                           AppNavigators.pushAndReplacement(context, AppRoutes.appNav);
                          },
                          child:
                              Text(

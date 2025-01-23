@@ -8,8 +8,8 @@ class GetOrderRepositoryImpl implements GetOrderRepository{
 
   GetOrderRepositoryImpl({required this.fireBaseOrdersDataSource});
   @override
-  Future<Either> getOnProcessingOrder(String onProcessing) async{
-    var data = await fireBaseOrdersDataSource.getOnProcessingOrder(onProcessing);
+  Future<Either> getOnProcessingOrder() async{
+    var data = await fireBaseOrdersDataSource.getOnProcessingOrder();
     return data.fold((error) => Left(error), (response) {
       if (response == null || (response as List).isEmpty) {
         return Left(Exception('No Products found.'));
