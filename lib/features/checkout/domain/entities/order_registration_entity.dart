@@ -7,6 +7,7 @@ class OrderRegistrationEntity {
   final double totalPrice;
   final int itemCount;
   final String userAddress;
+  final String orderStatus;
 
   OrderRegistrationEntity({
     required this.products,
@@ -14,6 +15,7 @@ class OrderRegistrationEntity {
     required this.totalPrice,
     required this.itemCount,
     required this.userAddress,
+    required this.orderStatus,
   });
 
   factory OrderRegistrationEntity.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class OrderRegistrationEntity {
       totalPrice: json['totalPrice'] as double,
       itemCount: json['itemCount'] as int,
       userAddress: json['userAddress'] as String,
+      orderStatus: json['orderStatus'] as String,
     );
   }
 
@@ -33,6 +36,7 @@ class OrderRegistrationEntity {
       'totalPrice': totalPrice,
       'itemCount': itemCount,
       'userAddress': userAddress,
+      'orderStatus': orderStatus,
     };
   }
 }

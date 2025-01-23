@@ -105,11 +105,10 @@ class CheckoutButton extends StatelessWidget {
                         if (cubit.addressController.text.isNotEmpty&&cubit.addressController.text.length>=50) {
                           cubit.registerOrder(
                             OrderRegistrationEntity(
+                              orderStatus: 'OnProcessing',
                               userAddress: cubit.addressController.text,
                               products: product,
-                              totalPrice:
-                                  CartHelper.calculatingSubTotal(product) +
-                                      8.toDouble(),
+                              totalPrice: CartHelper.calculatingSubTotal(product) + 8.toDouble(),
                               itemCount: product.length,
                               createdDate: Timestamp.now(),
                             ),
