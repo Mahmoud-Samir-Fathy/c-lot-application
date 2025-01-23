@@ -2,10 +2,10 @@ import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderWidget extends StatelessWidget {
+class OnProcessingOrderWidget extends StatelessWidget {
   final String orderId;
   final int itemCounts;
-  const OrderWidget({super.key, required this.orderId, required this.itemCounts});
+  const OnProcessingOrderWidget({super.key, required this.orderId, required this.itemCounts});
 
   @override
   Widget build(BuildContext context) {
