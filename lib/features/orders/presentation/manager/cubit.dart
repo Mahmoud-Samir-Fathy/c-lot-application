@@ -3,7 +3,7 @@ import 'package:e_commerce_app/features/orders/presentation/manager/states.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderCubit extends Cubit<OrdersStates> {
-  final GetOnProcessingOrderUseCase getOnProcessingOrdersUseCase;
+  final GetOnProcessingOrdersUseCase getOnProcessingOrdersUseCase;
 
   OrderCubit({required this.getOnProcessingOrdersUseCase})
       : super(OrderInitialState());
@@ -13,9 +13,10 @@ class OrderCubit extends Cubit<OrdersStates> {
   void getOnProcessingOrder() async {
     emit(OrderLoadingState());
 
-    final data = await getOnProcessingOrdersUseCase.getOrderRepository
-        .getOnProcessingOrder();
-    data.fold((error) => emit(OrderErrorState(message: error)),
-        (response) => emit(OrderSuccessState(orders: response)));
+    final result = await getOnProcessingOrdersUseCase();
+    result.fold(
+          (error) => emit(OrderErrorState(message: error)),
+          (orders) => emit(OrderSuccessState(orders: orders)),
+    );
   }
 }

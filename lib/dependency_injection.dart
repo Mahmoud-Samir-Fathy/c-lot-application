@@ -166,8 +166,8 @@ Future<void> init() async {
       () => IsFavouriteUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetFavouritesUseCase>(
       () => GetFavouritesUseCase(getFavouritesRepository: sl()));
-  sl.registerLazySingleton<GetOnProcessingOrderUseCase>(
-      () => GetOnProcessingOrderUseCase(getOrderRepository: sl()));
+  sl.registerLazySingleton<GetOnProcessingOrdersUseCase>(
+      () => GetOnProcessingOrdersUseCase(repository: sl()));
 
 
 

@@ -1,16 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce_app/core/usecases/usecase.dart';
+import 'package:e_commerce_app/features/checkout/domain/entities/order_registration_entity.dart';
 import 'package:e_commerce_app/features/orders/domain/repositories/get_order_repository.dart';
 
-class GetOnProcessingOrderUseCase
-    extends UseCase<Either, dynamic> {
-  final GetOrderRepository getOrderRepository;
+class GetOnProcessingOrdersUseCase {
+  final GetOrderRepository repository;
 
-  GetOnProcessingOrderUseCase({required this.getOrderRepository});
+  GetOnProcessingOrdersUseCase({required this.repository});
 
-  @override
-  Future<Either>? call(params) {
-    return getOrderRepository.getOnProcessingOrder();
+  Future<Either<String, List<OrderRegistrationEntity>>> call() async {
+    return await repository.getOnProcessingOrder();
   }
-
 }
