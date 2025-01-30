@@ -36,14 +36,14 @@ class OrderWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Order $orderId',
+                      'Order #$orderId',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text('No of items: $itemCounts'),
+                    Text('$itemCounts items'),
                   ],
                 ),
               ),

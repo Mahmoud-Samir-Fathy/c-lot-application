@@ -30,7 +30,7 @@ class OrderCubit extends Cubit<OrdersStates> {
   void getCancelledOrder() async {
     emit(GetCancelledOrderLoadingState());
 
-    final result = await getOnProcessingOrdersUseCase();
+    final result = await getCancelledOrderUseCase();
     result.fold(
           (error) => emit(GetCancelledOrderErrorState(message: error)),
           (orders) => emit(GetCancelledOrderSuccessState(orders: orders)),
@@ -39,7 +39,7 @@ class OrderCubit extends Cubit<OrdersStates> {
   void getReturnedOrder() async {
     emit(GetReturnedOrderLoadingState());
 
-    final result = await getOnProcessingOrdersUseCase();
+    final result = await getReturnedOrderUseCase();
     result.fold(
           (error) => emit(GetReturnedOrderErrorState(message: error)),
           (orders) => emit(GetReturnedOrderSuccessState(orders: orders)),
@@ -48,7 +48,7 @@ class OrderCubit extends Cubit<OrdersStates> {
   void getDeliveredOrder() async {
     emit(GetDeliveredOrderLoadingState());
 
-    final result = await getOnProcessingOrdersUseCase();
+    final result = await getDeliveredOrderUseCase();
     result.fold(
           (error) => emit(GetDeliveredOrderErrorState(message: error)),
           (orders) => emit(GetDeliveredOrderSuccessState(orders: orders)),
@@ -57,7 +57,7 @@ class OrderCubit extends Cubit<OrdersStates> {
   void getShippedOrder() async {
     emit(GetShippedOrderLoadingState());
 
-    final result = await getOnProcessingOrdersUseCase();
+    final result = await getShippedOrderUseCase();
     result.fold(
           (error) => emit(GetShippedOrderErrorState(message: error)),
           (orders) => emit(GetShippedOrderSuccessState(orders: orders)),
