@@ -22,4 +22,64 @@ class GetOrderRepositoryImpl implements GetOrderRepository {
       },
     );
   }
+
+  @override
+  Future<Either<String, List<OrderRegistrationEntity>>> getShippedOrder() async{
+    final result = await fireBaseOrdersDataSource.getShippedOrder();
+
+    return result.fold(
+          (error) => Left(error),
+          (response) {
+        if (response.isEmpty) {
+          return const Left('No orders found with status "OnProcessing".');
+        }
+        return Right(response);
+      },
+    );
+  }
+
+  @override
+  Future<Either<String, List<OrderRegistrationEntity>>> getCancelledOrder() async{
+    final result = await fireBaseOrdersDataSource.getCancelledOrder();
+
+    return result.fold(
+          (error) => Left(error),
+          (response) {
+        if (response.isEmpty) {
+          return const Left('No orders found with status "OnProcessing".');
+        }
+        return Right(response);
+      },
+    );
+  }
+
+  @override
+  Future<Either<String, List<OrderRegistrationEntity>>> getDeliveredOrder() async{
+    final result = await fireBaseOrdersDataSource.getDeliveredOrder();
+
+    return result.fold(
+          (error) => Left(error),
+          (response) {
+        if (response.isEmpty) {
+          return const Left('No orders found with status "OnProcessing".');
+        }
+        return Right(response);
+      },
+    );
+  }
+
+  @override
+  Future<Either<String, List<OrderRegistrationEntity>>> getReturnedOrder() async{
+    final result = await fireBaseOrdersDataSource.getReturnedOrder();
+
+    return result.fold(
+          (error) => Left(error),
+          (response) {
+        if (response.isEmpty) {
+          return const Left('No orders found with status "OnProcessing".');
+        }
+        return Right(response);
+      },
+    );
+  }
 }

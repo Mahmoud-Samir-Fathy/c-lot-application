@@ -1,5 +1,9 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
+import 'package:e_commerce_app/features/orders/presentation/pages/delivered_orders_page.dart';
 import 'package:e_commerce_app/features/orders/presentation/pages/on_process_orders_page.dart';
+import 'package:e_commerce_app/features/orders/presentation/pages/returned_orders_page.dart';
+import 'package:e_commerce_app/features/orders/presentation/pages/cancelled_orders_page.dart';
+import 'package:e_commerce_app/features/orders/presentation/pages/shipped_orders_page.dart';
 import 'package:e_commerce_app/shared_widgets/app_bar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,7 +48,7 @@ class OrdersScreen extends StatelessWidget {
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                       child: Text(
                         filter,
                         style: TextStyle(
@@ -61,7 +65,20 @@ class OrdersScreen extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: filters.map((filter) {
-                  return const OnProcessOrdersPage();
+                  switch (filter) {
+                    case "Processing":
+                      return const OnProcessOrdersPage();
+                    case "Shipped":
+                      return const ShippedOrdersPage();
+                    case "Delivered":
+                      return const DeliveredOrdersPage();
+                    case "Returned":
+                      return const ReturnedOrdersPage();
+                    case "Cancelled":
+                      return const CancelledOrdersPage();
+                    default:
+                      return const Center(child: Text('No page found'));
+                  }
                 }).toList(),
               ),
             ),

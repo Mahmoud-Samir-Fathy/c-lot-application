@@ -1,23 +1,24 @@
 import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/orders/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/orders/presentation/manager/states.dart';
-import 'package:e_commerce_app/features/orders/presentation/widgets/onProcess/on_processing_empty_orders.dart';
 import 'package:e_commerce_app/features/orders/presentation/widgets/onProcess/on_processing_order_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnProcessOrdersPage extends StatelessWidget {
-  const OnProcessOrdersPage({super.key});
+import '../widgets/onProcess/on_processing_empty_orders.dart';
+
+class CancelledOrdersPage extends StatelessWidget {
+  const CancelledOrdersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => sl<OrderCubit>()..getOnProcessingOrder(),
+        create: (context) => sl<OrderCubit>()..getCancelledOrder(),
         child: BlocBuilder<OrderCubit, OrdersStates>(
           builder: (context, state) {
-            if (state is GetOnProcessingOrderSuccessState) {
+            if (state is GetCancelledOrderSuccessState) {
               final onProcessingList = state.orders;
               if (onProcessingList.isEmpty) {
                 return const OnProcessingEmptyOrders();
@@ -33,7 +34,7 @@ class OnProcessOrdersPage extends StatelessWidget {
                 separatorBuilder: (context, index) => SizedBox(height: 5.h),
                 itemCount: onProcessingList.length,
               );
-            } else if (state is GetOnProcessingOrderLoadingState) {
+            } else if (state is GetCancelledOrderLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
