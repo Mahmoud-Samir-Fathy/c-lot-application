@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/orders/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/orders/presentation/manager/states.dart';
-import 'package:e_commerce_app/features/orders/presentation/widgets/on_processing_order_widget.dart';
+import 'package:e_commerce_app/features/orders/presentation/widgets/order_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
