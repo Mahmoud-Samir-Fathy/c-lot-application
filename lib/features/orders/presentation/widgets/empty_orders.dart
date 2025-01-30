@@ -5,8 +5,8 @@ import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnProcessingEmptyOrders extends StatelessWidget {
-  const OnProcessingEmptyOrders({super.key});
+class EmptyOrders extends StatelessWidget {
+  const EmptyOrders({super.key});
 
   @override
   Widget build(BuildContext context) {

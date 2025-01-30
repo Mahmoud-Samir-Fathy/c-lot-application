@@ -2,15 +2,17 @@ import 'package:e_commerce_app/core/utilis/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnProcessingOrderWidget extends StatelessWidget {
+class OrderWidget extends StatelessWidget {
   final String orderId;
   final int itemCounts;
-  const OnProcessingOrderWidget({super.key, required this.orderId, required this.itemCounts});
+
+  const OrderWidget(
+      {super.key, required this.orderId, required this.itemCounts});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 15.0.w),
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
       child: Container(
         height: 90.h,
         decoration: BoxDecoration(
@@ -33,7 +35,7 @@ class OnProcessingOrderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       'Order $orderId',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -41,14 +43,14 @@ class OnProcessingOrderWidget extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                     Text('No of items: $itemCounts'),
+                    Text('No of items: $itemCounts'),
                   ],
                 ),
               ),
               const Spacer(),
               IconButton(
-
-                  onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios_outlined))
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_forward_ios_outlined))
             ],
           ),
         ),
