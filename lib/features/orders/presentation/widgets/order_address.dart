@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderAddress extends StatelessWidget {
-  const OrderAddress({super.key});
+  final String address;
+
+  const OrderAddress({super.key, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,7 @@ class OrderAddress extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.0.w),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0.w, horizontal: 8.h),
-              child: const Text(
-                  'asdklasdjasjdjlkasdaaaaaaaaaaaaaakjlasdjlkasjlkdjlkasdkjlasdjklasdjklasd'),
+              child: Text(address),
             ),
           ),
         ),

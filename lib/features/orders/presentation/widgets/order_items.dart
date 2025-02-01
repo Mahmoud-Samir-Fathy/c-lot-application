@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderItems extends StatelessWidget {
-  const OrderItems({super.key});
+  final int itemsCount;
+  const OrderItems({super.key, required this.itemsCount});
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +32,7 @@ class OrderItems extends StatelessWidget {
                 SizedBox(
                   width: 10.w,
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Order #',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      const Text(' items'),
-                    ],
-                  ),
-                ),
+                 Text('$itemsCount items'),
                 const Spacer(),
                 TextButton(onPressed: (){}, child: const Text('View all',style: TextStyle(color: AppColors.primary),))
               ],

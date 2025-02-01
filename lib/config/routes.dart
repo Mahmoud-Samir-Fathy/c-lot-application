@@ -7,7 +7,6 @@ import 'package:e_commerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:e_commerce_app/features/checkout/presentation/pages/order_registered_successfully_page.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/categories.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/search_page.dart';
-import 'package:e_commerce_app/features/orders/presentation/pages/order_details.dart';
 import 'package:e_commerce_app/features/settings/presentation/pages/favourite_page.dart';
 import 'package:e_commerce_app/features/settings/presentation/pages/wishlist.dart';
 import 'package:e_commerce_app/features/splash/presentation/pages/splash_screen.dart';
@@ -26,7 +25,6 @@ class AppRoutes {
   static String wishList = 'wishList';
   static String favourites = 'favourites';
   static String appNav = 'appNav';
-  static String orderDetails = 'orderDetails';
 
 
   static get routes {
@@ -44,7 +42,6 @@ class AppRoutes {
       AppRoutes.wishList: (context) => const Wishlist(),
       AppRoutes.favourites: (context) => const FavouritePage(),
       AppRoutes.appNav: (context) => const AppNavigationBar(),
-      AppRoutes.orderDetails: (context) => const OrderDetails(),
     };
   }
 }

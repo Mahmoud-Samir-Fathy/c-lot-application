@@ -26,10 +26,8 @@ class DeliveredOrdersPage extends StatelessWidget {
               return ListView.separated(
                 itemBuilder: (context, index) {
                   final order = list[index];
-                  return OrderWidget(
-                    orderId: order.id.toString(),
-                    itemCounts: order.itemCount,
-                  );
+                  return OrderWidget(orders: order);
+
                 },
                 separatorBuilder: (context, index) => SizedBox(height: 5.h),
                 itemCount: list.length,
