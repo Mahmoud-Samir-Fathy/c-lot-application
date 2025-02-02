@@ -15,13 +15,13 @@ class Wishlist extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      sl<GetFavouriteCubit>()
+      sl<SettingsCubit>()
         ..getFavouriteProduct(),
       child: Scaffold(
         appBar: const BasicAppbar(
           title: Text('Wishlist'),
         ),
-        body: BlocBuilder<GetFavouriteCubit, GetFavouriteStates>(
+        body: BlocBuilder<SettingsCubit, SettingsStates>(
           builder: (context, state) {
             if(state is GetFavouriteLoadingState){
               return const Center(child: CircularProgressIndicator(),);

@@ -1,19 +1,28 @@
 import 'package:e_commerce_app/features/settings/domain/use_cases/get_favourites_use_case.dart';
+import 'package:e_commerce_app/features/settings/domain/use_cases/sign_out_use_case.dart';
 import 'package:e_commerce_app/features/settings/presentation/manager/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GetFavouriteCubit extends Cubit<GetFavouriteStates> {
+class SettingsCubit extends Cubit<SettingsStates> {
   final GetFavouritesUseCase getFavouriteUseCase;
+  final SignOutUseCase signOutUseCase;
 
-  GetFavouriteCubit({required this.getFavouriteUseCase})
+  SettingsCubit({required this.signOutUseCase,required this.getFavouriteUseCase})
       : super(GetFavouriteInitialState());
 
-  static GetFavouriteCubit get(context) => BlocProvider.of(context);
+  static SettingsCubit get(context) => BlocProvider.of(context);
 
   void getFavouriteProduct() async {
     emit(GetFavouriteLoadingState());
-    final data = await getFavouriteUseCase.getFavouritesRepository.getFavouriteProducts();
+    final data =
+        await getFavouriteUseCase.settingsRepository.getFavouriteProducts();
     data.fold((error) => emit(GetFavouriteErrorState(message: error)),
         (response) => emit(GetFavouriteSuccessState(favourites: response)));
+  }
+
+  void signOut() async {
+    final data = await signOutUseCase.settingsRepository.signOut();
+    data.fold((error) => emit(SignOutErrorState(message: error)),
+        (response) => emit(SignOutSuccessState()));
   }
 }

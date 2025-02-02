@@ -15,9 +15,9 @@ class FavouritePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => sl<GetFavouriteCubit>()..getFavouriteProduct(),
+      create: (context) => sl<SettingsCubit>()..getFavouriteProduct(),
       child: Scaffold(
-        body: BlocBuilder<GetFavouriteCubit, GetFavouriteStates>(
+        body: BlocBuilder<SettingsCubit, SettingsStates>(
           builder: (context, state) {
             if (state is GetFavouriteSuccessState) {
               final favouriteList = state.favourites;

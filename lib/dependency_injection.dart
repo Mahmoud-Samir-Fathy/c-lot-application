@@ -60,6 +60,7 @@ import 'package:e_commerce_app/features/product_details/data/data_sources/fire_b
 import 'package:e_commerce_app/features/product_details/data/repositories/product_repository_impl.dart';
 import 'package:e_commerce_app/features/product_details/domain/repositories/product_repository.dart';
 import 'package:e_commerce_app/features/product_details/domain/use_cases/add_to_cart_use_case.dart';
+import 'package:e_commerce_app/features/settings/domain/use_cases/sign_out_use_case.dart';
 import 'package:e_commerce_app/features/settings/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/splash/data/data_sources/firebase_authentication_data_source.dart';
 import 'package:e_commerce_app/features/splash/data/repositories/authentication_repository_impl.dart';
@@ -101,8 +102,8 @@ Future<void> init() async {
       () => FireBaseCartItemsDataSourceImpl());
   sl.registerLazySingleton<FireBaseOrderRegistrationDataSource>(
       () => FireBaseOrderRegistrationDataSourceImpl());
-  sl.registerLazySingleton<FireBaseGetFavouritesDataSource>(
-      () => FireBaseGetFavouritesDataSourceImpl());
+  sl.registerLazySingleton<FireBaseSettingsDataSource>(
+      () => FireBaseSettingsDataSourceImpl());
   sl.registerLazySingleton<FireBaseOrdersDataSource>(
       () => FireBaseOrdersDataSourceImpl());
 
@@ -128,8 +129,8 @@ Future<void> init() async {
   sl.registerLazySingleton<OrderRegistrationRepository>(() =>
       OrderRegistrationRepositoryImpl(
           fireBaseOrderRegistrationDataSource: sl()));
-  sl.registerLazySingleton<GetFavouritesRepository>(
-      () => GetFavouritesRepositoryImpl(fireBaseGetFavouritesDataSource: sl()));
+  sl.registerLazySingleton<SettingsRepository>(
+      () => SettingsRepositoryImpl(fireBaseSettingsDataSource: sl()));
   sl.registerLazySingleton<GetOrderRepository>(
       () => GetOrderRepositoryImpl(fireBaseOrdersDataSource: sl()));
 
@@ -167,7 +168,7 @@ Future<void> init() async {
   sl.registerLazySingleton<IsFavouriteUseCase>(
       () => IsFavouriteUseCase(getProductsRepository: sl()));
   sl.registerLazySingleton<GetFavouritesUseCase>(
-      () => GetFavouritesUseCase(getFavouritesRepository: sl()));
+      () => GetFavouritesUseCase(settingsRepository: sl()));
   sl.registerLazySingleton<GetOnProcessingOrdersUseCase>(
       () => GetOnProcessingOrdersUseCase(repository: sl()));
   sl.registerLazySingleton<GetCancelledOrderUseCase>(
@@ -178,6 +179,8 @@ Future<void> init() async {
       () => GetReturnedOrderUseCase(repository: sl()));
   sl.registerLazySingleton<GetShippedOrderUseCase>(
       () => GetShippedOrderUseCase(repository: sl()));
+  sl.registerLazySingleton<SignOutUseCase>(
+      () => SignOutUseCase(settingsRepository: sl()));
 
   // Cubit
   sl.registerFactory<SplashCubit>(
@@ -207,8 +210,8 @@ Future<void> init() async {
       () => OrderRegisterCubit(orderRegisterUseCase: sl()));
   sl.registerFactory<FavouriteCubit>(
       () => FavouriteCubit(setFavouriteUseCase: sl(), isFavourite: sl()));
-  sl.registerFactory<GetFavouriteCubit>(
-      () => GetFavouriteCubit(getFavouriteUseCase: sl()));
+  sl.registerFactory<SettingsCubit>(
+      () => SettingsCubit(getFavouriteUseCase: sl(),signOutUseCase: sl()));
   sl.registerFactory<OrderCubit>(() => OrderCubit(
       getOnProcessingOrdersUseCase: sl(),
       getCancelledOrderUseCase: sl(),

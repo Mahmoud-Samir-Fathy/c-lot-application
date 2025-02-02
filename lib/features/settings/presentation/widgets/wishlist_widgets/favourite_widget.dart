@@ -40,7 +40,7 @@ class FavouriteWidget extends StatelessWidget {
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold),
                 ),
-                BlocBuilder<GetFavouriteCubit, GetFavouriteStates>(
+                BlocBuilder<SettingsCubit, SettingsStates>(
                   builder: (context, state) {
                     if (state is GetFavouriteSuccessState) {
                       var favouriteList = state.favourites;
