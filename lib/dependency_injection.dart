@@ -39,9 +39,9 @@ import 'package:e_commerce_app/features/orders/domain/use_cases/get_on_processin
 import 'package:e_commerce_app/features/orders/domain/use_cases/get_returned_order_use_case.dart';
 import 'package:e_commerce_app/features/orders/domain/use_cases/get_shipped_order_use_case.dart';
 import 'package:e_commerce_app/features/orders/presentation/manager/cubit.dart';
-import 'package:e_commerce_app/features/settings/data/data_sources/fire_base_get_favourites_data_source.dart';
-import 'package:e_commerce_app/features/settings/data/repositories/get_favourites_repository_impl.dart';
-import 'package:e_commerce_app/features/settings/domain/repositories/get_favourites_repository.dart';
+import 'package:e_commerce_app/features/settings/data/data_sources/fire_base_settings_data_source.dart';
+import 'package:e_commerce_app/features/settings/data/repositories/settings_repository_impl.dart';
+import 'package:e_commerce_app/features/settings/domain/repositories/settings_repository.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/get_favourites_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_products_by_category_id_use_case.dart';
