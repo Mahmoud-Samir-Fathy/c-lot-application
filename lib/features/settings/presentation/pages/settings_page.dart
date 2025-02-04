@@ -33,7 +33,9 @@ class SettingsPage extends StatelessWidget {
               SizedBox(
                 height: 25.h,
               ),
-              CustomWidgetSetting(text: 'Address', onPressed: () {}),
+              CustomWidgetSetting(text: 'Address', onPressed: () {
+                AppNavigators.push(context, AppRoutes.address);
+              }),
               SizedBox(
                 height: 10.h,
               ),
