@@ -10,7 +10,8 @@ class CustomTextFormFieldWidget extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.onSubmit,
-    this.mustHave50Characters = false, // New parameter to enforce character count
+    this.keyboardType, // New optional parameter for keyboard type
+    this.mustHave50Characters = false,
   });
 
   final TextEditingController? controller;
@@ -19,7 +20,8 @@ class CustomTextFormFieldWidget extends StatefulWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final Function(String)? onSubmit;
-  final bool mustHave50Characters; // Optional parameter to enforce character count
+  final TextInputType? keyboardType; // Optional keyboard type
+  final bool mustHave50Characters;
 
   @override
   _CustomTextFormFieldWidgetState createState() =>
@@ -41,13 +43,12 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
       controller: widget.controller,
       obscureText: isObscured,
       onChanged: widget.onChanged,
+      keyboardType: widget.keyboardType ?? TextInputType.text, // Default to text
       validator: (value) {
-        // Use provided validator if available
         if (widget.validator != null) {
           return widget.validator!(value);
         }
 
-        // Additional validation for 50 characters
         if (widget.mustHave50Characters && value != null) {
           if (value.trim().length < 50) {
             return 'Please enter at least 50 characters.';

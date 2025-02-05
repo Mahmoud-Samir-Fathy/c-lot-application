@@ -5,7 +5,6 @@ class UserRegister {
   final String password;
   final String age;
   final String gender;
-  final String address;
 
   UserRegister({
     required this.lastName,
@@ -14,7 +13,6 @@ class UserRegister {
     required this.password,
     required this.age,
     required this.gender,
-    required this.address,
   });
 
 }

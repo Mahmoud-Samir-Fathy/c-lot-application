@@ -157,7 +157,6 @@ class GenderAndAge extends StatelessWidget {
                               return;
                             }
                             final user = UserRegister(
-                              address: '',
                               firstName: firstName,
                               lastName: lastName,
                               email: email,

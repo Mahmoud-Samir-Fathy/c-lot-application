@@ -1,6 +1,4 @@
-import 'package:e_commerce_app/config/routes.dart';
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
-import 'package:e_commerce_app/core/utilis/helpers/app_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,11 +34,10 @@ class UserAddress extends StatelessWidget {
               const Spacer(),
               TextButton(
                   onPressed: () {
-                    AppNavigators.push(context, AppRoutes.editAddress);
                   },
                   child: const Text(
-                    'Edit',
-                    style: TextStyle(color: AppColors.primary),
+                    'Delete',
+                    style: TextStyle(color: AppColors.red),
                   ))
             ],
           ),

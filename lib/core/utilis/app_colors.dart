@@ -9,5 +9,6 @@ class AppColors {
   static const buttonTextColor = Colors.white;
   static const transparent = Colors.transparent;
   static const searchColor = Colors.white70;
+  static const red = Colors.red;
 
 }
