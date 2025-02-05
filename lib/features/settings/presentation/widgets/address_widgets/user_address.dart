@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserAddress extends StatelessWidget {
-  const UserAddress({super.key});
+  final String st;
+  final String city;
+  final String state;
+  final int zipCode;
+  const UserAddress({super.key, required this.st, required this.city, required this.state, required this.zipCode});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class UserAddress extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '#asddddddddddddddddddddddd###########dd',style: TextStyle(fontSize:15.sp,color: AppColors.buttonTextColor),
+                      '$st,$city,$state,$zipCode',style: TextStyle(fontSize:15.sp,color: AppColors.buttonTextColor),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

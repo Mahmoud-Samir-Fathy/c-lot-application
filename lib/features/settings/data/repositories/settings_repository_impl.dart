@@ -47,4 +47,10 @@ class SettingsRepositoryImpl implements SettingsRepository {
   Future<Either> getAddresses() async {
     return await fireBaseSettingsDataSource.getAddresses();
   }
+
+  @override
+  Future<Either> deleteAddress(String id) {
+    // TODO: implement deleteAddress
+    throw UnimplementedError();
+  }
 }

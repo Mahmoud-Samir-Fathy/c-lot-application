@@ -9,4 +9,5 @@ abstract class SettingsRepository {
   Future<Either> addAddress(AddressEntity address);
 
   Future<Either> getAddresses();
+  Future<Either> deleteAddress(String id);
 }

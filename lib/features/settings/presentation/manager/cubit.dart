@@ -54,7 +54,7 @@ class SettingsCubit extends Cubit<SettingsStates> {
   void getAddress()async{
     emit(GetAddressLoadingState());
     final data =
-        await getFavouriteUseCase.settingsRepository.getFavouriteProducts();
+        await getAddressUseCase.settingsRepository.getAddresses();
     data.fold((error) => emit(GetAddressErrorState(message: error)),
             (response) => emit(GetAddressSuccessState(address: response)));
 

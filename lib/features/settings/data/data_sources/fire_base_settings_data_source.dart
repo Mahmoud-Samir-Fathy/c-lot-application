@@ -69,7 +69,11 @@ class FireBaseSettingsDataSourceImpl implements FireBaseSettingsDataSource {
           .doc(user!.uid)
           .collection('address')
           .get();
-      return Right(data);
+      List<AddressEntity> addresses = data.docs
+          .map((doc) => AddressEntity.fromJson(doc.data()))
+          .toList();
+
+      return Right(addresses);
     }catch(e){
       return const Left('Something went wrong');
     }
