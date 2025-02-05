@@ -31,7 +31,7 @@ class AddAddressErrorState extends SettingsStates{
 
 class GetAddressLoadingState extends SettingsStates{}
 class GetAddressSuccessState extends SettingsStates{
-  final List<AddressEntity> address;
+  final AddressEntity address;
 
   GetAddressSuccessState({required this.address});
 }
