@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/features/settings/domain/entities/address_entity.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/add_address_use_case.dart';
+import 'package:e_commerce_app/features/settings/domain/use_cases/delete_address_use_case.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/get_address_use_case.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/get_favourites_use_case.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/sign_out_use_case.dart';
@@ -12,10 +13,12 @@ class SettingsCubit extends Cubit<SettingsStates> {
   final SignOutUseCase signOutUseCase;
   final AddAddressUseCase addAddressUseCase;
   final GetAddressUseCase getAddressUseCase;
+  final DeleteAddressUseCase deleteAddressUseCase;
 
   SettingsCubit(
       {required this.getAddressUseCase,
-        required this.signOutUseCase,
+      required this.signOutUseCase,
+      required this.deleteAddressUseCase,
       required this.getFavouriteUseCase,
       required this.addAddressUseCase})
       : super(GetFavouriteInitialState());
@@ -36,29 +39,39 @@ class SettingsCubit extends Cubit<SettingsStates> {
         (response) => emit(SignOutSuccessState()));
   }
 
-  final TextEditingController cityController=TextEditingController();
-  final TextEditingController zipCodeController=TextEditingController();
-  final TextEditingController stateController=TextEditingController();
-  final TextEditingController stController=TextEditingController();
-  final GlobalKey<FormState> formKey=GlobalKey<FormState>();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController zipCodeController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController stController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void addAddress(AddressEntity address) async {
     emit(AddAddressLoadingState());
     final data = await addAddressUseCase.settingsRepository.addAddress(address);
     if (isClosed) return;
     data.fold(
-          (error) => emit(AddAddressErrorState(message: error)),
-          (response) => emit(AddAddressSuccessState()),
+      (error) => emit(AddAddressErrorState(message: error)),
+      (response) => emit(AddAddressSuccessState()),
     );
   }
-  void getAddress()async{
+
+  void getAddress() async {
     emit(GetAddressLoadingState());
-    final data =
-        await getAddressUseCase.settingsRepository.getAddresses();
+    final data = await getAddressUseCase.settingsRepository.getAddresses();
     data.fold((error) => emit(GetAddressErrorState(message: error)),
-            (response) => emit(GetAddressSuccessState(address: response)));
-
-
+        (response) => emit(GetAddressSuccessState(address: response)));
   }
 
+  void deleteAddress(AddressEntity address) async {
+    emit(DeleteAddressLoadingState());
+    final result = await deleteAddressUseCase.settingsRepository
+        .deleteAddress(address.id.toString());
+    result.fold(
+      (failure) => emit(DeleteAddressErrorState(message: failure.toString())),
+      (response) {
+        emit(DeleteAddressSuccessState());
+        getAddress();
+      },
+    );
+  }
 }

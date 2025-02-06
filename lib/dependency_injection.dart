@@ -43,6 +43,7 @@ import 'package:e_commerce_app/features/settings/data/data_sources/fire_base_set
 import 'package:e_commerce_app/features/settings/data/repositories/settings_repository_impl.dart';
 import 'package:e_commerce_app/features/settings/domain/repositories/settings_repository.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/add_address_use_case.dart';
+import 'package:e_commerce_app/features/settings/domain/use_cases/delete_address_use_case.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/get_address_use_case.dart';
 import 'package:e_commerce_app/features/settings/domain/use_cases/get_favourites_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_new_in_products_use_case.dart';
@@ -187,6 +188,8 @@ Future<void> init() async {
       () => AddAddressUseCase(settingsRepository: sl()));
   sl.registerLazySingleton<GetAddressUseCase>(
       () => GetAddressUseCase(settingsRepository: sl()));
+  sl.registerLazySingleton<DeleteAddressUseCase>(
+      () => DeleteAddressUseCase(settingsRepository: sl()));
 
   // Cubit
   sl.registerFactory<SplashCubit>(
@@ -217,7 +220,7 @@ Future<void> init() async {
   sl.registerFactory<FavouriteCubit>(
       () => FavouriteCubit(setFavouriteUseCase: sl(), isFavourite: sl()));
   sl.registerFactory<SettingsCubit>(
-      () => SettingsCubit(getFavouriteUseCase: sl(),signOutUseCase: sl(),addAddressUseCase: sl(),getAddressUseCase: sl()));
+      () => SettingsCubit(getFavouriteUseCase: sl(),signOutUseCase: sl(),addAddressUseCase: sl(),getAddressUseCase: sl(),deleteAddressUseCase: sl()));
   sl.registerFactory<OrderCubit>(() => OrderCubit(
       getOnProcessingOrdersUseCase: sl(),
       getCancelledOrderUseCase: sl(),

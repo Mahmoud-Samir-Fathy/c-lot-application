@@ -119,7 +119,7 @@ class EditUserAddressPage extends StatelessWidget {
                                   stAddress: cubit.stController.text,
                                   city: cubit.cityController.text,
                                   state: cubit.stateController.text,
-                                  zipCode: zipCode,
+                                  zipCode: zipCode, id:null ,
                                 ));
 
                               }

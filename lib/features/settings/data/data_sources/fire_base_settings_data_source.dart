@@ -12,6 +12,7 @@ abstract class FireBaseSettingsDataSource {
 
 
   Future<Either> getAddresses();
+  Future<Either> deleteAddress(String id);
 
 
 }
@@ -60,22 +61,45 @@ class FireBaseSettingsDataSourceImpl implements FireBaseSettingsDataSource {
   }
 
   @override
-  Future<Either> getAddresses() async{
-    try{
+  Future<Either> getAddresses() async {
+    try {
       final user = FirebaseAuth.instance.currentUser;
 
-      final data= await FirebaseFirestore.instance
+      final data = await FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
           .collection('address')
           .get();
-      List<AddressEntity> addresses = data.docs
-          .map((doc) => AddressEntity.fromJson(doc.data()))
-          .toList();
+
+      List<AddressEntity> addresses = data.docs.map((doc) {
+        var addressData = doc.data();
+        addressData.addAll({'id': doc.id});
+        return AddressEntity.fromJson(addressData);
+      }).toList();
 
       return Right(addresses);
-    }catch(e){
+    } catch (e) {
       return const Left('Something went wrong');
     }
   }
+
+  @override
+  Future<Either> deleteAddress(String id) async{
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .collection('address')
+          .doc(id)
+          .delete();
+
+      return const Right('Successfully Removed');
+    } on FirebaseException catch (e) {
+      return Left(e.message ?? 'An unknown error occurred');
+    }
+  }
+
+
 }

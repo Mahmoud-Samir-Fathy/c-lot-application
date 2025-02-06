@@ -40,3 +40,10 @@ class GetAddressErrorState extends SettingsStates{
 
   GetAddressErrorState({required this.message});
 }
+class DeleteAddressLoadingState extends SettingsStates{}
+class DeleteAddressSuccessState extends SettingsStates{}
+class DeleteAddressErrorState extends SettingsStates{
+  final String message;
+
+  DeleteAddressErrorState({required this.message});
+}

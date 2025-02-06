@@ -45,11 +45,7 @@ class AddressPage extends StatelessWidget {
                 return const Center(child: Text('No addresses found.'));
               }
               return ListView.separated(
-                itemBuilder: (context, index) => UserAddress(
-                  city: addresses[index].city,
-                  st: addresses[index].stAddress,
-                  state: addresses[index].state,
-                  zipCode: addresses[index].zipCode,
+                itemBuilder: (context, index) => UserAddress(address: addresses[index],
                 ),
                 separatorBuilder: (context, index) => SizedBox(height: 15.h),
                 itemCount: addresses.length,

@@ -3,12 +3,14 @@ class AddressEntity {
   final String city;
   final String state;
   final int zipCode;
+  final String? id;
 
   AddressEntity({
     required this.stAddress,
     required this.city,
     required this.state,
     required this.zipCode,
+    this.id,
   });
 
   factory AddressEntity.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class AddressEntity {
       city: json['city'],
       state: json['state'],
       zipCode: json['zipCode'],
+      id: json['id'],
     );
   }
 
@@ -26,6 +29,7 @@ class AddressEntity {
       'city': city,
       'state': state,
       'zipCode': zipCode,
+      'id': id,
     };
   }
 }
