@@ -5,7 +5,6 @@ import 'package:e_commerce_app/dependency_injection.dart';
 import 'package:e_commerce_app/features/settings/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/settings/presentation/manager/states.dart';
 import 'package:e_commerce_app/features/settings/presentation/widgets/address_widgets/user_address.dart';
-import 'package:e_commerce_app/shared_widgets/app_bar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,18 +15,41 @@ class AddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppbar(
-        hideBack: false,
-        title: const Text('Address'),
-        action: TextButton(
-          onPressed: () {
-            AppNavigators.push(context, AppRoutes.editAddress);
-          },
-          child: const Text(
-            '+Add',
-            style: TextStyle(color: AppColors.primary),
+      appBar: AppBar(
+        titleSpacing: 0,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        toolbarHeight: 80.h ,
+        leading: IconButton(   onPressed: (){
+          AppNavigators.pushAndReplacement(context, AppRoutes.layout);
+        },     icon: Container(
+          height: 50.h,
+          width: 50.w,
+          decoration: const BoxDecoration(
+              color: AppColors.secondBackground,
+              shape: BoxShape.circle
+          ),
+          child:  Icon(
+              Icons.arrow_back_ios_new,
+              size: 15.sp,
+              color:  Colors.white
           ),
         ),
+            ),
+        title: const Text('Address'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              AppNavigators.push(context, AppRoutes.editAddress);
+            },
+            child: const Text(
+              '+Add',
+              style: TextStyle(color: AppColors.primary),
+            ),
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (context) => sl<SettingsCubit>()..getAddress(),
