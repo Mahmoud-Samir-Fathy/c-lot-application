@@ -1,9 +1,11 @@
 import 'package:e_commerce_app/core/utilis/app_colors.dart';
+import 'package:e_commerce_app/features/notifications/domain/entities/notification_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationWidget extends StatelessWidget {
-  const NotificationWidget({super.key});
+  final NotificationEntity notification;
+  const NotificationWidget({super.key, required this.notification});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class NotificationWidget extends StatelessWidget {
                 Expanded(
                   child: Text(
 
-                    'Mahmoud ,you have Placed and Order check your order history for full details',
+                    '${notification.title},${notification.body}',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 13.sp, height: 1.5, ),

@@ -30,6 +30,12 @@ import 'package:e_commerce_app/features/home/domain/repositories/get_products_re
 import 'package:e_commerce_app/features/home/domain/repositories/get_user_repository.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_all_products_use_case.dart';
 import 'package:e_commerce_app/features/home/domain/use_cases/get_categories_use_case.dart';
+import 'package:e_commerce_app/features/notifications/data/data_sources/firebase_notification_data_source.dart';
+import 'package:e_commerce_app/features/notifications/data/repositories/notification_repostiory_impl.dart';
+import 'package:e_commerce_app/features/notifications/domain/repositories/notification_repository.dart';
+import 'package:e_commerce_app/features/notifications/domain/use_cases/get_notification_use_case.dart';
+import 'package:e_commerce_app/features/notifications/domain/use_cases/send_notification_use_case.dart';
+import 'package:e_commerce_app/features/notifications/presentation/manager/cubit.dart';
 import 'package:e_commerce_app/features/orders/data/data_sources/fire_base_orders_data_source.dart';
 import 'package:e_commerce_app/features/orders/data/repositories/get_order_repository_impl.dart';
 import 'package:e_commerce_app/features/orders/domain/repositories/get_order_repository.dart';
@@ -109,6 +115,8 @@ Future<void> init() async {
       () => FireBaseSettingsDataSourceImpl());
   sl.registerLazySingleton<FireBaseOrdersDataSource>(
       () => FireBaseOrdersDataSourceImpl());
+  sl.registerLazySingleton<FirebaseNotificationDataSource>(
+      () => FirebaseNotificationDataSourceImpl());
 
   // Repository
   sl.registerLazySingleton<RegisterRepository>(
@@ -136,6 +144,8 @@ Future<void> init() async {
       () => SettingsRepositoryImpl(fireBaseSettingsDataSource: sl()));
   sl.registerLazySingleton<GetOrderRepository>(
       () => GetOrderRepositoryImpl(fireBaseOrdersDataSource: sl()));
+  sl.registerLazySingleton<NotificationRepository>(
+      () => NotificationRepositoryImpl(firebaseNotificationDataSource: sl()));
 
   // Use case
   sl.registerLazySingleton<SignupUseCase>(
@@ -190,6 +200,10 @@ Future<void> init() async {
       () => GetAddressUseCase(settingsRepository: sl()));
   sl.registerLazySingleton<DeleteAddressUseCase>(
       () => DeleteAddressUseCase(settingsRepository: sl()));
+  sl.registerLazySingleton<GetNotificationsUseCase>(
+      () => GetNotificationsUseCase(repository: sl()));
+  sl.registerLazySingleton<SendNotificationUseCase>(
+      () => SendNotificationUseCase(repository: sl()));
 
   // Cubit
   sl.registerFactory<SplashCubit>(
@@ -227,4 +241,8 @@ Future<void> init() async {
       getDeliveredOrderUseCase: sl(),
       getReturnedOrderUseCase: sl(),
       getShippedOrderUseCase: sl()));
+  sl.registerFactory<NotificationCubit>(() => NotificationCubit(
+      sendNotificationUseCase: sl(),
+      getNotificationsUseCase: sl()
+  ) );
 }
